@@ -1,0 +1,19 @@
+.form {
+  display:flex;
+  flex-direction: column;
+  margin:5px;
+}
+
+.card{
+  padding: 55px;
+}
+
+.main{
+  width: 600px;
+  margin: 0 auto;
+}
+
+.container .content{
+  width: 600px;
+  margin: auto;
+}

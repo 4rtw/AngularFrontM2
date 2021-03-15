@@ -1,0 +1,13 @@
+.login{
+    padding: 100px;
+}
+
+button + button {
+    margin-top: 20px;
+}
+
+.cardTitle{
+    text-align: center;
+    font-size: xxx-large;
+    color: darkslateblue;
+}

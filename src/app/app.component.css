@@ -1,0 +1,31 @@
+/*
+    Pour avoir une toolbar fixe, qui rempli la largeur et qui se colle au haut de la page
+    https://stackoverflow.com/questions/51058232/how-to-design-mat-toolbar-full-width-of-the-screen/51669408
+*/
+mat-toolbar{
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    width: 100% !important;
+}
+
+.body{
+    padding-top: 60px;
+}
+
+mat-toolbar span a:link{
+    text-decoration: none;
+}
+
+mat-toolbar span a{
+    color: white;
+}
+
+.spacer {
+    flex: 1 1 auto;
+}
+
+::-webkit-scrollbar {
+    display: none;
+}

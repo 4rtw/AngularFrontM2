@@ -1,0 +1,56 @@
+.container {
+  display: flex;
+  flex-direction: column;
+}
+
+.ajouterBtn {
+  align-self: flex-end;
+}
+
+.example-viewport {
+  height: 600px;
+  width: 600px;
+}
+
+::-webkit-scrollbar {
+  display: none;
+}
+
+.example-item {
+  height: 50px;
+}
+
+a:link{
+  text-decoration: none;
+}
+
+/*
+ Liste Drag and Drop
+*/
+
+.container {
+  display: flex;
+  flex-direction: column;
+}
+
+.ajouterBtn {
+  align-self: flex-end;
+}
+
+.example-viewport {
+  height: 600px;
+  width: 600px;
+}
+
+::-webkit-scrollbar {
+  display: none;
+}
+
+.example-item {
+  height: 50px;
+}
+
+a:link{
+  text-decoration: none;
+}
+
