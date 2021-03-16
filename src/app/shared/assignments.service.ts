@@ -142,7 +142,6 @@ export class AssignmentsService {
       nouvelAssignment.rendu = a.rendu;
 
       appelsVersAddAssignment.push(this.addAssignment(nouvelAssignment));
-      console.log(this.progress);
     });
     return forkJoin(appelsVersAddAssignment); // renvoie un seul Observable pour dire que c'est fini
   }
