@@ -2,9 +2,6 @@
     Pour avoir une toolbar fixe, qui rempli la largeur et qui se colle au haut de la page
     https://stackoverflow.com/questions/51058232/how-to-design-mat-toolbar-full-width-of-the-screen/51669408
 */
-.container{
-    width: 100% !important;
-}
 
 mat-toolbar{
     position: fixed;
@@ -34,8 +31,10 @@ mat-toolbar span a{
     display: none;
 }
 
-{
-    background-color: crimson;
-    left: 0;
-    width: 100% !important;
+.sidenav{
+    width: 200px !important;
+}
+
+.container{
+    width: 100%;
 }
