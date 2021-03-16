@@ -1,4 +1,5 @@
-<!--Toolbar-->
+<div class="container">
+  <!--Toolbar-->
 <mat-toolbar color="primary">
   <span><h1><a routerLink="/home">{{title}}</a></h1></span>
   <span class="spacer"></span>
@@ -9,7 +10,7 @@
 
   <!--Liste dans le menu-->
   <mat-menu #menu="matMenu">
-    <button mat-menu-item (click)="peuplerBD()">Peupler la BD</button>
+    <button mat-menu-item (click)="popupPeuplerBD()">Peupler la BD</button>
     <button mat-menu-item (click)="onAjouterClick()">Ajouter un assignment</button>
     <button mat-menu-item *ngIf="!isLogedIn; else logoutButton" (click)="onConnecterClick()">Login</button>
 
@@ -24,4 +25,5 @@
 <!-- Indique qu'on affichera le composant qui correspond à l'URL courant -->
 <div class="body">
   <router-outlet></router-outlet>
+</div>
 </div>

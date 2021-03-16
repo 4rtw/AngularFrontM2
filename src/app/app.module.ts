@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
-import { AppComponent } from './app.component';
+import {AppComponent, DialogPopupContentComponent} from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatButtonModule } from '@angular/material/button';
 import {MatDividerModule} from '@angular/material/divider';
@@ -19,6 +19,8 @@ import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatGridListModule} from '@angular/material/grid-list';
 import {DragDropModule} from '@angular/cdk/drag-drop';
+import {MatDialogModule} from '@angular/material/dialog';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 import { AssignmentsComponent } from './assignments/assignments.component';
 import { RenduDirective } from './shared/rendu.directive';
@@ -33,6 +35,7 @@ import { HttpClientModule } from '@angular/common/http';
 import {ScrollingModule} from '@angular/cdk/scrolling';
 import { LoginComponent } from './authentication/login/login.component';
 import { RegisterComponent } from './authentication/register/register.component';
+import {DeleteConfirmPopupComponent} from './assignments/assignment-detail/assignment-detail.component';
 
 const routes: Routes = [
   {
@@ -78,7 +81,9 @@ const routes: Routes = [
     AddAssignmentComponent,
     EditAssigmentComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    DialogPopupContentComponent,
+    DeleteConfirmPopupComponent
   ],
   imports: [
     BrowserModule,
@@ -92,6 +97,8 @@ const routes: Routes = [
     MatMenuModule,
     MatGridListModule,
     DragDropModule,
+    MatDialogModule,
+    MatSnackBarModule,
     RouterModule.forRoot(routes), HttpClientModule, ScrollingModule
   ],
   providers: [],

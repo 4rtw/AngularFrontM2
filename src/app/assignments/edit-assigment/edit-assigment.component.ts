@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AssignmentsService } from 'src/app/shared/assignments.service';
 import { Assignment } from '../assignment.model';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-edit-assigment',
@@ -18,7 +19,8 @@ export class EditAssigmentComponent implements OnInit {
   constructor(
     private assignmentsService: AssignmentsService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private snackBar: MatSnackBar
   ) {}
 
   ngOnInit(): void {
@@ -53,6 +55,7 @@ export class EditAssigmentComponent implements OnInit {
 
     this.assignment.nom = this.nom;
     this.assignment.dateDeRendu = this.dateDeRendu;
+    const oldName = this.assignment.nom;
 
     this.assignmentsService.updateAssignment(this.assignment)
       .subscribe(message => {
@@ -60,6 +63,11 @@ export class EditAssigmentComponent implements OnInit {
 
         // et on navigue vers la page d'accueil
         this.router.navigate(['/home']);
+
+        // on affiche une notification
+        this.snackBar.open(oldName + ' a été modifié avec succès en ' + this.assignment.nom, 'OK', {
+          duration: 2000,
+        });
       });
 
   }

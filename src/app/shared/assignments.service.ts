@@ -5,6 +5,7 @@ import { catchError, filter, map, tap } from 'rxjs/operators';
 import { Assignment } from '../assignments/assignment.model';
 import { LoggingService } from './logging.service';
 import { assignmentsGeneres } from './data';
+import {Data} from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -14,8 +15,8 @@ export class AssignmentsService {
 
   constructor(private loggingService: LoggingService, private http: HttpClient) { }
 
-  // uri = 'https://backend-nodejs-m2-n-a.herokuapp.com/api/assignments';
-  uri = 'https://assignementapp.herokuapp.com/api/assignments';
+  uri = 'https://backend-nodejs-m2-n-a.herokuapp.com/api/assignments';
+  // uri = 'https://assignementapp.herokuapp.com/api/assignments';
 
   getAssignments(): Observable<Assignment[]> {
     console.log('Dans le service de gestion des assignments...');
@@ -42,11 +43,11 @@ export class AssignmentsService {
 
     // return of(assignementCherche);
 
-    return this.http.get<Assignment>(this.uri + '/' + id)
+    return this.http.get<Data>(this.uri + '/' + id)
     .pipe(
       // traitement 1
-      map(a => {
-        return a;
+      map((a) => {
+        return a.data;
       }),
       tap(a => {
         console.log('TRACE DANS TAP : j\'ai reçu ' + a.nom);

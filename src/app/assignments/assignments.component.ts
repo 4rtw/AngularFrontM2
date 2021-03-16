@@ -49,15 +49,15 @@ export class AssignmentsComponent implements OnInit {
     this.assignmentsService
       .getAssignmentsPagine(this.page, this.limit)
       .subscribe((data) => {
-        this.assignments = data.docs;
-        this.page = data.page;
-        this.limit = data.limit;
-        this.totalDocs = data.totalDocs;
-        this.totalPages = data.totalPages;
-        this.hasPrevPage = data.hasPrevPage;
-        this.prevPage = data.prevPage;
-        this.hasNextPage = data.hasNextPage;
-        this.nextPage = data.nextPage;
+        this.assignments = data.data.docs;
+        this.page = data.data.page;
+        this.limit = data.data.limit;
+        this.totalDocs = data.data.totalDocs;
+        this.totalPages = data.data.totalPages;
+        this.hasPrevPage = data.data.hasPrevPage;
+        this.prevPage = data.data.prevPage;
+        this.hasNextPage = data.data.hasNextPage;
+        this.nextPage = data.data.nextPage;
         console.log('données reçues');
       });
   }
@@ -68,16 +68,16 @@ export class AssignmentsComponent implements OnInit {
       .subscribe((data) => {
         // au lieu de remplacer this.assignments par les nouveaux assignments récupérés
         // on va les ajouter à ceux déjà présents...
-        this.assignments = this.assignments.concat(data.docs);
+        this.assignments = this.assignments.concat(data.data.docs);
         // this.assignments = [...this.assignments, ...data.docs];
-        this.page = data.page;
-        this.limit = data.limit;
-        this.totalDocs = data.totalDocs;
-        this.totalPages = data.totalPages;
-        this.hasPrevPage = data.hasPrevPage;
-        this.prevPage = data.prevPage;
-        this.hasNextPage = data.hasNextPage;
-        this.nextPage = data.nextPage;
+        this.page = data.data.page;
+        this.limit = data.data.limit;
+        this.totalDocs = data.data.totalDocs;
+        this.totalPages = data.data.totalPages;
+        this.hasPrevPage = data.data.hasPrevPage;
+        this.prevPage = data.data.prevPage;
+        this.hasNextPage = data.data.hasNextPage;
+        this.nextPage = data.data.nextPage;
         console.log('données reçues');
       });
   }

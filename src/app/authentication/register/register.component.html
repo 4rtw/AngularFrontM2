@@ -1,20 +1,21 @@
-<mat-grid-list cols="3">
-    <mat-grid-tile></mat-grid-tile>
-    <mat-grid-tile>
+<div class="container">
+    <div class="content">
         <mat-card class="login">
+
             <mat-card-title class="cardTitle">Register</mat-card-title>
             <mat-card-content>
-                <mat-form-field appearance="fill" [style.width.px]=327>
+                <form ngForm #formAssignment class="form" (submit)=" onSubmit($event); formAssignment.reset();">
+                <mat-form-field appearance="fill">
                     <mat-label>Real Name</mat-label>
                     <input matInput>
                 </mat-form-field>
 
-                <mat-form-field appearance="fill" [style.width.px]=327>
+                <mat-form-field appearance="fill">
                     <mat-label>Username</mat-label>
                     <input matInput>
                 </mat-form-field>
 
-                <mat-form-field appearance="fill" [style.width.px]=327>
+                <mat-form-field appearance="fill">
                     <mat-label>Password</mat-label>
                     <input matInput [type]="hide ? 'password' : 'text'">
                     <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
@@ -22,20 +23,16 @@
                     </button>
                 </mat-form-field>
 
-                <mat-form-field appearance="fill" [style.width.px]=327>
+                <mat-form-field appearance="fill">
                     <mat-label>Confirm your password</mat-label>
                     <input matInput [type]="hide ? 'password' : 'text'">
                     <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
                         <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
                     </button>
                 </mat-form-field>
-
-                <div>
-                    <button mat-stroked-button color="primary" [style.width.px]="327">Register</button>
-                </div>
-
+                    <button mat-stroked-button color="primary">Register</button>
+            </form>
             </mat-card-content>
         </mat-card>
-    </mat-grid-tile>
-    <mat-grid-tile></mat-grid-tile>
-</mat-grid-list>
+    </div>
+</div>

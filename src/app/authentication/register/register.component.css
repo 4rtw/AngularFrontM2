@@ -1,13 +1,17 @@
-.login{
-    padding: 100px;
+.container .content{
+    width: 600px;
+    margin: auto;
+}
+
+mat-card{
+    padding: 55px;
 }
 
 button + button {
-    margin-top: 20px;
+    margin-top: 10px;
 }
 
-.cardTitle{
-    text-align: center;
-    font-size: xxx-large;
-    color: darkslateblue;
+.form{
+    display: flex;
+    flex-direction: column;
 }

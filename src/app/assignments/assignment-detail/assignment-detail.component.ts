@@ -3,6 +3,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AssignmentsService } from 'src/app/shared/assignments.service';
 import { AuthService } from 'src/app/shared/auth.service';
 import { Assignment } from '../assignment.model';
+import {MatSnackBar, MatSnackBarModule} from '@angular/material/snack-bar';
+import {DialogPopupContentComponent} from '../../app.component';
+import {MatDialog} from '@angular/material/dialog';
 
 @Component({
   selector: 'app-assignment-detail',
@@ -17,7 +20,8 @@ export class AssignmentDetailComponent implements OnInit {
     private assignmentsService: AssignmentsService,
     private route: ActivatedRoute,
     private router: Router,
-    private authService: AuthService
+    private authService: AuthService,
+    public dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
@@ -49,20 +53,6 @@ export class AssignmentDetailComponent implements OnInit {
     // this.assignmentTransmis = null;
   }
 
-  onDelete(): void {
-    this.assignmentsService
-      .deleteAssignment(this.assignmentTransmis)
-      .subscribe((reponse) => {
-        console.log(reponse.message);
-
-        // on cache l'affichage du détail
-        this.assignmentTransmis = null;
-
-        // et on navigue vers la page d'accueil qui affiche la liste
-        this.router.navigate(['/home']);
-      });
-  }
-
   onClickEdit(): void {
     this.router.navigate(['/assignment', this.assignmentTransmis.id, 'edit'], {
       queryParams: {
@@ -76,5 +66,58 @@ export class AssignmentDetailComponent implements OnInit {
 
   isAdmin(): boolean {
     return this.authService.admin;
+  }
+
+  popupDelete(): void{
+    const dialogRef = this.dialog.open(DeleteConfirmPopupComponent);
+  }
+}
+
+
+@Component({
+  selector: 'app-delete-confirm-popup-content',
+  templateUrl: './delete-confirm-popup-content.html'
+})
+export class DeleteConfirmPopupComponent implements OnInit{
+  assignmentTransmis: Assignment;
+  constructor(
+              private assignmentsService: AssignmentsService,
+              private router: Router,
+              private route: ActivatedRoute,
+              private snackbar: MatSnackBar){}
+
+  ngOnInit(): void {
+    this.getAssignmentById();
+  }
+
+  getAssignmentById(): void {
+    // les params sont des string, on va forcer la conversion
+    // en number en mettant un "+" devant
+    const id: number = +this.route.snapshot.params.id;
+
+    console.log('Dans ngOnInit de details, id = ' + id);
+    this.assignmentsService.getAssignment(id).subscribe((assignment) => {
+      this.assignmentTransmis = assignment;
+    });
+  }
+
+  onDelete(): void {
+    this.assignmentsService
+        .deleteAssignment(this.assignmentTransmis)
+        .subscribe((reponse) => {
+          console.log(reponse.message);
+          const nom = this.assignmentTransmis.nom;
+
+          // on cache l'affichage du détail
+          this.assignmentTransmis = null;
+
+          // et on navigue vers la page d'accueil qui affiche la liste
+          this.router.navigate(['/home']);
+
+          // on affiche une notification
+          this.snackbar.open(nom + ' a été supprimé avec succès', 'OK', {
+            duration: 2000,
+          });
+        });
   }
 }

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AssignmentsService } from 'src/app/shared/assignments.service';
 import { Assignment } from '../assignment.model';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-add-assignment',
@@ -14,7 +15,8 @@ export class AddAssignmentComponent implements OnInit {
   dateDeRendu = null;
 
   constructor(private assignmentsService: AssignmentsService,
-              private router: Router) {}
+              private router: Router,
+              private snackBar: MatSnackBar) {}
 
   ngOnInit(): void {}
 
@@ -32,6 +34,11 @@ export class AddAssignmentComponent implements OnInit {
 
          // et on navigue vers la page d'accueil qui affiche la liste
         this.router.navigate(['/home']);
+
+        // puis on affiche une notiffication
+        this.snackBar.open(nouvelAssignment.nom + ' a été ajouté avec succès', 'OK', {
+          duration: 2000,
+        });
       });
   }
 

@@ -13,4 +13,7 @@ export class RegisterComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  onSubmit($event: Event): void {
+
+  }
 }
