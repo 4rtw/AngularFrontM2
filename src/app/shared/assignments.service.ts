@@ -12,6 +12,7 @@ import {Data} from '@angular/router';
 })
 export class AssignmentsService {
   assignments: Assignment[];
+  progress: number;
 
   constructor(private loggingService: LoggingService, private http: HttpClient) { }
 
@@ -129,7 +130,7 @@ export class AssignmentsService {
 
   // autre version qui permet de récupérer un subscribe une fois que tous les inserts
   // ont été effectués
-  peuplerBDAvecForkJoin(): Observable<any> {
+  peuplerBDAvecForkJoin(): (Observable<any>) {
     const appelsVersAddAssignment = [];
 
     assignmentsGeneres.forEach((a) => {
@@ -141,6 +142,7 @@ export class AssignmentsService {
       nouvelAssignment.rendu = a.rendu;
 
       appelsVersAddAssignment.push(this.addAssignment(nouvelAssignment));
+      console.log(this.progress);
     });
     return forkJoin(appelsVersAddAssignment); // renvoie un seul Observable pour dire que c'est fini
   }

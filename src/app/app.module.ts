@@ -21,6 +21,7 @@ import {MatGridListModule} from '@angular/material/grid-list';
 import {DragDropModule} from '@angular/cdk/drag-drop';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
 
 import { AssignmentsComponent } from './assignments/assignments.component';
 import { RenduDirective } from './shared/rendu.directive';
@@ -99,6 +100,7 @@ const routes: Routes = [
     DragDropModule,
     MatDialogModule,
     MatSnackBarModule,
+    MatProgressBarModule,
     RouterModule.forRoot(routes), HttpClientModule, ScrollingModule
   ],
   providers: [],

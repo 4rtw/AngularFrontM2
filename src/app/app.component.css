@@ -38,3 +38,7 @@ mat-toolbar span a{
 .container{
     width: 100%;
 }
+
+.progress-bar{
+    padding-top: 200px;
+}

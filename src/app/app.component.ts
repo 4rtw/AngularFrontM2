@@ -43,6 +43,8 @@ export class AppComponent implements OnInit{
   templateUrl: 'add-assignments-dialog-popup-content.html'
 })
 export class DialogPopupContentComponent{
+  isBegin: boolean;
+  progressBarValue: number;
 
   constructor(private assignmentsService: AssignmentsService,
               private router: Router) {}
@@ -51,11 +53,15 @@ export class DialogPopupContentComponent{
     // version naive et simple
     // this.assignmentsService.peuplerBD();
 
+    this.isBegin = true;
     // meilleure version :
     this.assignmentsService.peuplerBDAvecForkJoin()
         .subscribe(() => {
           console.log('LA BD A ETE PEUPLEE, TOUS LES ASSIGNMENTS AJOUTES, ON RE-AFFICHE LA LISTE');
           this.router.navigate(['/home'], {replaceUrl: true});
         });
+
+    setTimeout( () => { this.isBegin = false; }, 1000);
+
   }
 }
