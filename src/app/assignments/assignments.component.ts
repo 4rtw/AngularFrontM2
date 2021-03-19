@@ -47,8 +47,6 @@ export class AssignmentsComponent implements OnInit {
       this.limit = +queryParams.limit || 10;
 
       this.getAssignments();
-      // Assure de ne pas avoir d'espace vide
-      // this.getPlusDAssignmentsPourScrolling();
     });
     console.log('getAssignments() du service appelé');
   }
@@ -67,8 +65,10 @@ export class AssignmentsComponent implements OnInit {
         this.hasNextPage = data.data.hasNextPage;
         this.nextPage = data.data.nextPage;
         console.log('données reçues');
+
         this.assignmentsNonRendus = this.assignments.filter( item => item.rendu === false);
         this.assignmentsRendus = this.assignments.filter( item => item.rendu === true);
+        this.checkIfEnoughtItems();
       });
   }
 
@@ -94,10 +94,25 @@ export class AssignmentsComponent implements OnInit {
       });
   }
 
-  onScrollList(scroller: CdkVirtualScrollViewport): void{
-      console.log(scroller
-          .elementRef);
+  getNextData(): void{
+      this.ngZone.run(() => {
+          if (this.hasNextPage) {
+              this.page = this.nextPage;
+              console.log(
+                  'Je charge de nouveaux assignments page = ' + this.page
+              );
+              this.getPlusDAssignmentsPourScrolling();
+          }
+      });
+  }
 
+  checkIfEnoughtItems(): void{
+    if ( this.assignmentsNonRendus.length <= 10 || this.assignmentsRendus.length <= 10){
+        this.getNextData();
+    }
+  }
+
+  onScrollList(scroller: CdkVirtualScrollViewport): void{
       scroller
         .elementScrolled()
         .pipe(
@@ -112,15 +127,7 @@ export class AssignmentsComponent implements OnInit {
             // les 200ms
         )
         .subscribe((dist) => {
-        this.ngZone.run(() => {
-            if (this.hasNextPage) {
-                this.page = this.nextPage;
-                console.log(
-                    'Je charge de nouveaux assignments page = ' + this.page
-                );
-                this.getPlusDAssignmentsPourScrolling();
-            }
-        });
+        this.getNextData();
     });
   }
 
@@ -148,8 +155,8 @@ export class AssignmentsComponent implements OnInit {
           moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
       } else {
 
-          // https://stackoverflow.com/questions/58206928/how-can-i-get-dragged-item-data-in-metarial-drag-and-drop
-          /* A permi de récupérer l'assignment dans la liste du drag and drop
+          /* https://stackoverflow.com/questions/58206928/how-can-i-get-dragged-item-data-in-metarial-drag-and-drop
+           * A permi de récupérer l'assignment dans la liste du drag and drop
            * en l'occurence event.item.data qui sera de type Assignment
            * Il faut aussi rajouter [cdkDragData] dans la partie html, qui précise l'élément qu'on veut récupérer
            * */
