@@ -48,7 +48,7 @@ export class AssignmentsComponent implements OnInit {
 
       this.getAssignments();
       // Assure de ne pas avoir d'espace vide
-      this.getPlusDAssignmentsPourScrolling();
+      // this.getPlusDAssignmentsPourScrolling();
     });
     console.log('getAssignments() du service appelé');
   }
@@ -95,6 +95,9 @@ export class AssignmentsComponent implements OnInit {
   }
 
   onScrollList(scroller: CdkVirtualScrollViewport): void{
+      console.log(scroller
+          .elementRef);
+
       scroller
         .elementScrolled()
         .pipe(
@@ -140,32 +143,34 @@ export class AssignmentsComponent implements OnInit {
     });
   }
 
-    drop(event: CdkDragDrop<Assignment[]>): void {
-        if (event.previousContainer === event.container) {
-            moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
-        } else {
+  drop(event: CdkDragDrop<Assignment[]>): void {
+      if (event.previousContainer === event.container) {
+          moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+      } else {
 
-            // https://stackoverflow.com/questions/58206928/how-can-i-get-dragged-item-data-in-metarial-drag-and-drop
-            /* A permi de récupérer l'assignment dans la liste du drag and drop
-            * en l'occurence event.item.data
-            * */
-            const theAssignment = new Assignment();
-            theAssignment._id = event.item.data._id;
-            theAssignment.id = event.item.data.id;
-            theAssignment.nom = event.item.data.nom;
-            theAssignment.dateDeRendu = event.item.data.dateDeRendu;
-            theAssignment.rendu = !event.item.data.rendu;
-            event.item.data.rendu = !event.item.data.rendu;
+          // https://stackoverflow.com/questions/58206928/how-can-i-get-dragged-item-data-in-metarial-drag-and-drop
+          /* A permi de récupérer l'assignment dans la liste du drag and drop
+           * en l'occurence event.item.data qui sera de type Assignment
+           * Il faut aussi rajouter [cdkDragData] dans la partie html, qui précise l'élément qu'on veut récupérer
+           * */
+          const theAssignment = new Assignment();
+          theAssignment._id = event.item.data._id;
+          theAssignment.id = event.item.data.id;
+          theAssignment.nom = event.item.data.nom;
+          theAssignment.dateDeRendu = event.item.data.dateDeRendu;
+          //    Pour l'assignment dans la DB
+          theAssignment.rendu = !event.item.data.rendu;
+          //    Pour l'assignment dans la liste locale
+          event.item.data.rendu = !event.item.data.rendu;
 
-            this.assignmentsService.updateAssignment(theAssignment).subscribe(
-                message => {
-                    console.log(message);
-                    this.snackBar.open('Assignment modifié avec succès', 'OK', {
-                    duration: 2000,
+          this.assignmentsService.updateAssignment(theAssignment).subscribe(
+              message => {
+                  console.log(message);
+                  this.snackBar.open('Assignment modifié avec succès', 'OK', {duration: 2000,
                 }); }
             );
 
-            transferArrayItem(event.previousContainer.data,
+          transferArrayItem(event.previousContainer.data,
                 event.container.data,
                 event.previousIndex,
                 event.currentIndex);
