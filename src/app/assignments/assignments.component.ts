@@ -149,6 +149,7 @@ export class AssignmentsComponent implements OnInit {
                 event.currentIndex);
         }
         console.log(this.assignmentsRendus);
+        console.log('e');
         console.log(this.assignmentsNonRendus);
     }
 }
