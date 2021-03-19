@@ -161,8 +161,5 @@ export class AssignmentsComponent implements OnInit {
                 event.previousIndex,
                 event.currentIndex);
         }
-        // TODO: Test raha niova dia ovaina
-        console.log(this.assignmentsRendus);
-        console.log(this.assignmentsNonRendus);
     }
 }
