@@ -5,6 +5,7 @@ import { filter, map, pairwise, throttleTime } from 'rxjs/operators';
 import { AssignmentsService } from '../shared/assignments.service';
 import { Assignment } from './assignment.model';
 import { CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
+import {scheduleObservable} from 'rxjs/internal/scheduled/scheduleObservable';
 
 @Component({
   selector: 'app-assignments',
@@ -44,6 +45,8 @@ export class AssignmentsComponent implements OnInit {
       this.limit = +queryParams.limit || 10;
 
       this.getAssignments();
+      // Assure de ne pas avoir d'espace vide
+      this.getPlusDAssignmentsPourScrolling();
     });
     console.log('getAssignments() du service appelé');
   }
@@ -90,7 +93,7 @@ export class AssignmentsComponent implements OnInit {
   }
 
   onScrollList(scroller: CdkVirtualScrollViewport): void{
-    scroller
+      scroller
         .elementScrolled()
         .pipe(
             map((event) => {
@@ -98,7 +101,8 @@ export class AssignmentsComponent implements OnInit {
             }),
             pairwise(),
             filter(([y1, y2]) => y2 < y1 && y2 < 200),
-            throttleTime(200) // on ne va en fait envoyer le dernier événement que toutes les 200ms.
+            throttleTime(200)
+            // on ne va en fait envoyer le dernier événement que toutes les 200ms.
             // on va ignorer tous les évéments arrivés et ne garder que le dernier toutes
             // les 200ms
         )
@@ -115,11 +119,12 @@ export class AssignmentsComponent implements OnInit {
     });
   }
 
+  /*
+  * Appelé automatiquement après l'affichage, donc l'élément scroller aura
+  *  et affiché et ne vaudra pas "undefined" (ce qui aurait été le cas dans ngOnInit)
+  * On va s'abonner aux évenements de scroll sur le scrolling...
+  */
   ngAfterViewInit(): void {
-    // Appelé automatiquement après l'affichage, donc l'élément scroller aura
-    // et affiché et ne vaudra pas "undefined" (ce qui aurait été le cas dans ngOnInit)
-
-    // On va s'abonner aux évenements de scroll sur le scrolling...
       this.onScrollList(this.scrollerRendu);
       this.onScrollList(this.scrollerNonRendu);
   }
@@ -133,7 +138,7 @@ export class AssignmentsComponent implements OnInit {
     });
   }
 
-    drop(event: CdkDragDrop<Assignment[], any>): void {
+    drop(event: CdkDragDrop<Assignment[]>): void {
         if (event.previousContainer === event.container) {
             moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
         } else {
@@ -142,5 +147,7 @@ export class AssignmentsComponent implements OnInit {
                 event.previousIndex,
                 event.currentIndex);
         }
+        console.log(this.assignmentsRendus);
+        console.log(this.assignmentsNonRendus);
     }
 }
