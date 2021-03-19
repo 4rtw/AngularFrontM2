@@ -143,13 +143,26 @@ export class AssignmentsComponent implements OnInit {
         if (event.previousContainer === event.container) {
             moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
         } else {
+
+            const theAssignment = new Assignment();
+            theAssignment._id = event.item.data._id;
+            theAssignment.id = event.item.data.id;
+            theAssignment.nom = event.item.data.nom;
+            theAssignment.dateDeRendu = event.item.data.dateDeRendu;
+            theAssignment.rendu = !event.item.data.rendu;
+            event.item.data.rendu = !event.item.data.rendu;
+
+            this.assignmentsService.updateAssignment(theAssignment).subscribe(
+                message => {console.log(message); }
+            );
+
             transferArrayItem(event.previousContainer.data,
                 event.container.data,
                 event.previousIndex,
                 event.currentIndex);
         }
+        // TODO: Test raha niova dia ovaina
         console.log(this.assignmentsRendus);
-        console.log('e');
         console.log(this.assignmentsNonRendus);
     }
 }

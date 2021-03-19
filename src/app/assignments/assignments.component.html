@@ -10,7 +10,7 @@
                 class="example-list"
                 (cdkDropListDropped)="drop($event)">
           <cdk-virtual-scroll-viewport #scrollerNonRendu itemSize="50" class="example-viewport">
-          <div class="example-box" *ngFor="let item of assignmentsNonRendus" cdkDrag>
+          <div class="example-box" *ngFor="let item of assignmentsNonRendus" cdkDrag [cdkDragData]="item">
             <nav>
               <a routerLink="/assignment/{{item.id}}">
                 <mat-list-item class="example-item">
@@ -44,7 +44,7 @@
                 class="example-list"
                 (cdkDropListDropped)="drop($event)">
           <cdk-virtual-scroll-viewport #scrollerRendu itemSize="50" class="example-viewport">
-            <div class="example-box" *ngFor="let item of assignmentsRendus" cdkDrag>
+            <div class="example-box" *ngFor="let item of assignmentsRendus" cdkDrag [cdkDragData]="item">
               <nav>
                 <a routerLink="/assignment/{{item.id}}">
                   <mat-list-item class="example-item">
