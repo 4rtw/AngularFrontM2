@@ -1,8 +1,9 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, destroyPlatform, OnInit} from '@angular/core';
 import { Router } from '@angular/router';
 import { AssignmentsService } from './shared/assignments.service';
 import {MatDialog} from '@angular/material/dialog';
 import { AuthService } from './shared/auth.service';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-root',
@@ -40,14 +41,15 @@ export class AppComponent implements OnInit{
 
 @Component({
   selector: 'app-dialog-popup-content',
-  templateUrl: 'add-assignments-dialog-popup-content.html'
+  templateUrl: 'add-assignments-dialog-popup-content.html',
+  styleUrls: ['./app.component.css']
 })
 export class DialogPopupContentComponent{
   isBegin: boolean;
-  progressBarValue: number;
 
   constructor(private assignmentsService: AssignmentsService,
-              private router: Router) {}
+              private router: Router,
+              private snackBar: MatSnackBar) {}
 
   peuplerBD(): void {
     // version naive et simple
@@ -59,9 +61,9 @@ export class DialogPopupContentComponent{
         .subscribe(() => {
           console.log('LA BD A ETE PEUPLEE, TOUS LES ASSIGNMENTS AJOUTES, ON RE-AFFICHE LA LISTE');
           this.router.navigate(['/home'], {replaceUrl: true});
+          this.snackBar.open('LA BD A ETE PEUPLEE, TOUS LES ASSIGNMENTS AJOUTES', 'OK');
         });
 
     setTimeout( () => { this.isBegin = false; }, 1000);
-
   }
 }
