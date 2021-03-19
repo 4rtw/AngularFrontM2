@@ -108,8 +108,7 @@ export class AssignmentsService {
 
 
     this.loggingService.log(assignment.nom, ' a été supprimé');
-
-    return this.http.delete(this.uri + '/' + assignment._id);
+    return this.http.delete(this.uri + '/' + assignment.id);
 
   }
 

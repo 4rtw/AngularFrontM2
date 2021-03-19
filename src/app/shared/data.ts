@@ -1,5 +1,5 @@
 export const assignmentsGeneres = [
-  { id: 1, nom: 'Minyx', dateDeRendu: '10/12/2020', rendu: true },
+  /*{ id: 1, nom: 'Minyx', dateDeRendu: '10/12/2020', rendu: true },
   { id: 2, nom: 'Oyonder', dateDeRendu: '11/12/2020', rendu: false },
   { id: 3, nom: 'Topiczoom', dateDeRendu: '7/19/2020', rendu: true },
   { id: 4, nom: 'Youspan', dateDeRendu: '4/10/2020', rendu: false },
@@ -499,4 +499,14 @@ export const assignmentsGeneres = [
   { id: 498, nom: 'Topicware', dateDeRendu: '10/31/2020', rendu: true },
   { id: 499, nom: 'Mycat', dateDeRendu: '11/18/2020', rendu: true },
   { id: 500, nom: 'Roodel', dateDeRendu: '7/25/2020', rendu: true },
+  */
+  { id: 501, nom: 'Oyope', dateDeRendu: '11/25/2020', rendu: false },
+  { id: 502, nom: 'Bubblebox', dateDeRendu: '12/24/2020', rendu: false },
+  { id: 503, nom: 'Digitube', dateDeRendu: '1/13/2021', rendu: false },
+  { id: 504, nom: 'Eamia', dateDeRendu: '1/27/2021', rendu: true },
+  { id: 505, nom: 'Kaymbo', dateDeRendu: '1/25/2021', rendu: true },
+  { id: 506, nom: 'Tagfeed', dateDeRendu: '6/10/2020', rendu: false },
+  { id: 507, nom: 'Topicware', dateDeRendu: '10/31/2020', rendu: true },
+  { id: 508, nom: 'Mycat', dateDeRendu: '11/18/2020', rendu: true },
+  { id: 509, nom: 'Roodel', dateDeRendu: '7/25/2020', rendu: true },
 ];

@@ -173,7 +173,8 @@ export class AssignmentsComponent implements OnInit {
           this.assignmentsService.updateAssignment(theAssignment).subscribe(
               message => {
                   console.log(message);
-                  this.snackBar.open('Assignment modifié avec succès', 'OK', {duration: 2000,
+                  const rendu = event.item.data.rendu ? 'rendu avec succes' : 'non rendu';
+                  this.snackBar.open('Assignment ' + rendu , 'OK', {duration: 2000,
                 }); }
             );
 

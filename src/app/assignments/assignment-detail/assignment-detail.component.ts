@@ -3,8 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AssignmentsService } from 'src/app/shared/assignments.service';
 import { AuthService } from 'src/app/shared/auth.service';
 import { Assignment } from '../assignment.model';
-import {MatSnackBar, MatSnackBarModule} from '@angular/material/snack-bar';
-import {DialogPopupContentComponent} from '../../app.component';
+import {MatSnackBar} from '@angular/material/snack-bar';
 import {MatDialog} from '@angular/material/dialog';
 
 @Component({
@@ -93,7 +92,7 @@ export class DeleteConfirmPopupComponent implements OnInit{
   getAssignmentById(): void {
     // les params sont des string, on va forcer la conversion
     // en number en mettant un "+" devant
-    const id: number = +this.route.snapshot.params.id;
+    const id = Number(this.router.url.split('/', 3)[2]);
 
     console.log('Dans ngOnInit de details, id = ' + id);
     this.assignmentsService.getAssignment(id).subscribe((assignment) => {
