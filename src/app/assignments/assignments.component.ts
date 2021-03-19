@@ -6,6 +6,7 @@ import { AssignmentsService } from '../shared/assignments.service';
 import { Assignment } from './assignment.model';
 import { CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
 import {scheduleObservable} from 'rxjs/internal/scheduled/scheduleObservable';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-assignments',
@@ -33,7 +34,8 @@ export class AssignmentsComponent implements OnInit {
     private assignmentsService: AssignmentsService,
     private route: ActivatedRoute,
     private router: Router,
-    private ngZone: NgZone
+    private ngZone: NgZone,
+    private snackBar: MatSnackBar
   ) {}
 
   ngOnInit(): void {
@@ -143,6 +145,10 @@ export class AssignmentsComponent implements OnInit {
             moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
         } else {
 
+            // https://stackoverflow.com/questions/58206928/how-can-i-get-dragged-item-data-in-metarial-drag-and-drop
+            /* A permi de récupérer l'assignment dans la liste du drag and drop
+            * en l'occurence event.item.data
+            * */
             const theAssignment = new Assignment();
             theAssignment._id = event.item.data._id;
             theAssignment.id = event.item.data.id;
@@ -152,7 +158,11 @@ export class AssignmentsComponent implements OnInit {
             event.item.data.rendu = !event.item.data.rendu;
 
             this.assignmentsService.updateAssignment(theAssignment).subscribe(
-                message => {console.log(message); }
+                message => {
+                    console.log(message);
+                    this.snackBar.open('Assignment modifié avec succès', 'OK', {
+                    duration: 2000,
+                }); }
             );
 
             transferArrayItem(event.previousContainer.data,
