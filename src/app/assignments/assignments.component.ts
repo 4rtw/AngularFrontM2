@@ -138,7 +138,6 @@ export class AssignmentsComponent implements OnInit {
     });
   }
 
-  // TODO: Change state of assignment when dropped
     drop(event: CdkDragDrop<Assignment[]>): void {
         if (event.previousContainer === event.container) {
             moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
