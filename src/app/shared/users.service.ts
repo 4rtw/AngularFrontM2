@@ -15,8 +15,9 @@ export class UsersService {
       private http: HttpClient
   ) { }
 
-  uri = 'https://backend-nodejs-m2-n-a.herokuapp.com/api/users';
-  uriForAdd = 'https://backend-nodejs-m2-n-a.herokuapp.com/api/authentifications/register';
+  baseUri = 'https://backend-nodejs-m2-n-a.herokuapp.com/api/';
+  uri = this.baseUri + 'users';
+  uriForAdd = this.baseUri + 'authentifications/register';
 
   getUsersPagine(page: number, limit: number): Observable<any> {
     return this.http.get<Users>(this.uri + '?page=' + page + '&limit=' + limit);
