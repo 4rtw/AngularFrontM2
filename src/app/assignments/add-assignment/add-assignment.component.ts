@@ -23,7 +23,7 @@ export class AddAssignmentComponent implements OnInit {
   onSubmit(event): void {
     if ((!this.nom) || (!this.dateDeRendu)) { return; }
 
-    let nouvelAssignment = new Assignment();
+    const nouvelAssignment = new Assignment();
     nouvelAssignment.nom = this.nom;
     nouvelAssignment.dateDeRendu = this.dateDeRendu;
     nouvelAssignment.rendu = false;

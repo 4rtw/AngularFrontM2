@@ -16,6 +16,7 @@ export class UsersService {
   ) { }
 
   uri = 'https://backend-nodejs-m2-n-a.herokuapp.com/api/users';
+  uriForAdd = 'https://backend-nodejs-m2-n-a.herokuapp.com/api/authentifications/register';
 
   getUsersPagine(page: number, limit: number): Observable<any> {
     return this.http.get<Users>(this.uri + '?page=' + page + '&limit=' + limit);
@@ -49,7 +50,7 @@ export class UsersService {
 
   addUser(user: Users): Observable<any>{
     user.id = this.generateId();
-    return this.http.post(this.uri, user);
+    return this.http.post(this.uriForAdd, user);
   }
 
   updateUser(user: Users): Observable<any>{
