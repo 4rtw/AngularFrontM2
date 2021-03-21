@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { forkJoin, Observable, of } from 'rxjs';
-import { catchError, filter, map, tap } from 'rxjs/operators';
+import { catchError, map, tap } from 'rxjs/operators';
 import { Assignment } from '../assignments/assignment.model';
 import { LoggingService } from './logging.service';
 import { assignmentsGeneres } from './data';
@@ -12,7 +12,6 @@ import {Data} from '@angular/router';
 })
 export class AssignmentsService {
   assignments: Assignment[];
-  progress: number;
 
   constructor(private loggingService: LoggingService, private http: HttpClient) { }
 

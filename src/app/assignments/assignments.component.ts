@@ -25,6 +25,7 @@ export class AssignmentsComponent implements OnInit {
   prevPage: number;
   hasNextPage: boolean;
   nextPage: number;
+  // TODO Drag and drop dans les Tabs
 
   @ViewChild('scrollerRendu') scrollerRendu: CdkVirtualScrollViewport;
   @ViewChild('scrollerNonRendu') scrollerNonRendu: CdkVirtualScrollViewport;
@@ -107,7 +108,7 @@ export class AssignmentsComponent implements OnInit {
   }
 
   checkIfEnoughtItems(): void{
-    if ( this.assignmentsNonRendus.length <= 10 || this.assignmentsRendus.length <= 10){
+    if ( this.assignmentsNonRendus.length <= 11 || this.assignmentsRendus.length <= 11){
         this.getNextData();
     }
   }
@@ -169,6 +170,8 @@ export class AssignmentsComponent implements OnInit {
           theAssignment.rendu = !event.item.data.rendu;
           //    Pour l'assignment dans la liste locale
           event.item.data.rendu = !event.item.data.rendu;
+
+          this.checkIfEnoughtItems();
 
           this.assignmentsService.updateAssignment(theAssignment).subscribe(
               message => {
