@@ -4,7 +4,7 @@
 
             <mat-card-title class="cardTitle">Register</mat-card-title>
             <mat-card-content>
-                <form ngForm #formUser class="form" (submit)="onSubmit($event);formUser.reset();">
+                <form ngForm #formUser class="form" (submit)=" onSubmit($event); formUser.reset();">
                 <mat-form-field appearance="fill">
                     <mat-label>Real Name</mat-label>
                     <input matInput placeholder="Votre nom" required [(ngModel)]="nom" name="nom">
@@ -18,7 +18,7 @@
                 <mat-form-field appearance="fill">
                     <mat-label>Password</mat-label>
                     <input matInput [type]="hide ? 'password' : 'text'" placeholder="Votre mot de passe" required [(ngModel)]="password" name="password">
-                    <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide" type="button">
+                    <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
                         <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
                     </button>
                 </mat-form-field>
@@ -30,7 +30,7 @@
                         <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
                     </button>
                 </mat-form-field-->
-                    <button mat-stroked-button color="primary" type="submit">
+                    <button mat-stroked-button color="primary">
                         Register
                     </button>
             </form>

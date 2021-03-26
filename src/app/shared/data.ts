@@ -509,4 +509,4 @@ export const assignmentsGeneres = [
   { id: 616, nom: 'Topicware', dateDeRendu: '10/31/2020', rendu: true },
   { id: 617, nom: 'Mycat', dateDeRendu: '11/18/2020', rendu: true },
   { id: 618, nom: 'Roodel', dateDeRendu: '7/25/2020', rendu: true },
-];
+]

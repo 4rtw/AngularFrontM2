@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { AssignmentsService } from 'src/app/shared/assignments.service';
-import { AuthService } from 'src/app/shared/auth.service';
-import { Assignment } from '../assignment.model';
-import {MatSnackBar} from '@angular/material/snack-bar';
-import {MatDialog} from '@angular/material/dialog';
+import { Component, OnInit } from '@angular/core'
+import { ActivatedRoute, Router } from '@angular/router'
+import { AssignmentsService } from 'src/app/shared/assignments.service'
+import { AuthService } from 'src/app/shared/auth.service'
+import { Assignment } from '../assignment.model'
+import {MatSnackBar} from '@angular/material/snack-bar'
+import {MatDialog} from '@angular/material/dialog'
 
 @Component({
   selector: 'app-assignment-detail',
@@ -13,7 +13,7 @@ import {MatDialog} from '@angular/material/dialog';
 })
 export class AssignmentDetailComponent implements OnInit {
   // passé sous forme d'attribut HTML
-  assignmentTransmis: Assignment;
+  assignmentTransmis: Assignment
 
   constructor(
     private assignmentsService: AssignmentsService,
@@ -24,32 +24,32 @@ export class AssignmentDetailComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.getAssignmentById();
+    this.getAssignmentById()
   }
 
   getAssignmentById(): void {
     // les params sont des string, on va forcer la conversion
     // en number en mettant un "+" devant
-    const id: number = +this.route.snapshot.params.id;
+    const id: number = +this.route.snapshot.params.id
 
-    console.log('Dans ngOnInit de details, id = ' + id);
+    console.log('Dans ngOnInit de details, id = ' + id)
     this.assignmentsService.getAssignment(id).subscribe((assignment) => {
-      this.assignmentTransmis = assignment;
-    });
+      this.assignmentTransmis = assignment
+    })
   }
 
   onAssignmentRendu(): void {
-    this.assignmentTransmis.rendu = true;
+    this.assignmentTransmis.rendu = true
 
     this.assignmentsService
       .updateAssignment(this.assignmentTransmis)
       .subscribe((reponse) => {
-        console.log(reponse.message);
+        console.log(reponse.message)
         // et on navigue vers la page d'accueil qui affiche la liste
-        this.router.navigate(['/home']);
-      });
+        this.router.navigate(['/home'])
+      })
 
-    // this.assignmentTransmis = null;
+    // this.assignmentTransmis = null
   }
 
   onClickEdit(): void {
@@ -60,15 +60,11 @@ export class AssignmentDetailComponent implements OnInit {
         responsable: 'MIAGE'
       },
       fragment: 'edition'
-    });
-  }
-
-  isAdmin(): boolean {
-    return this.authService.admin;
+    })
   }
 
   popupDelete(): void{
-    const dialogRef = this.dialog.open(DeleteConfirmPopupComponent);
+    const dialogRef = this.dialog.open(DeleteConfirmPopupComponent)
   }
 }
 
@@ -78,7 +74,7 @@ export class AssignmentDetailComponent implements OnInit {
   templateUrl: './delete-confirm-popup-content.html'
 })
 export class DeleteConfirmPopupComponent implements OnInit{
-  assignmentTransmis: Assignment;
+  assignmentTransmis: Assignment
   constructor(
               private assignmentsService: AssignmentsService,
               private router: Router,
@@ -86,37 +82,37 @@ export class DeleteConfirmPopupComponent implements OnInit{
               private snackbar: MatSnackBar){}
 
   ngOnInit(): void {
-    this.getAssignmentById();
+    this.getAssignmentById()
   }
 
   getAssignmentById(): void {
     // les params sont des string, on va forcer la conversion
     // en number en mettant un "+" devant
-    const id = Number(this.router.url.split('/', 3)[2]);
+    const id = Number(this.router.url.split('/', 3)[2])
 
-    console.log('Dans ngOnInit de details, id = ' + id);
+    console.log('Dans ngOnInit de details, id = ' + id)
     this.assignmentsService.getAssignment(id).subscribe((assignment) => {
-      this.assignmentTransmis = assignment;
-    });
+      this.assignmentTransmis = assignment
+    })
   }
 
   onDelete(): void {
     this.assignmentsService
         .deleteAssignment(this.assignmentTransmis)
         .subscribe((reponse) => {
-          console.log(reponse.message);
-          const nom = this.assignmentTransmis.nom;
+          console.log(reponse.message)
+          const nom = this.assignmentTransmis.nom
 
           // on cache l'affichage du détail
-          this.assignmentTransmis = null;
+          this.assignmentTransmis = null
 
           // et on navigue vers la page d'accueil qui affiche la liste
-          this.router.navigate(['/home']);
+          this.router.navigate(['/home'])
 
           // on affiche une notification
           this.snackbar.open(nom + ' a été supprimé avec succès', 'OK', {
             duration: 2000,
-          });
-        });
+          })
+        })
   }
 }

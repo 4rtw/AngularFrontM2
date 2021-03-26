@@ -1,0 +1,10 @@
+#Tache                      nom module                 status
+idle timing                 views
+login                       auth services
+auto lougout                auth services
+creation                    storage service             ok
+interceptor                 all http                    ok
+token impl                  token services              ok
+refresh token               token services              ok
+refactor services           all services
+snackbar coloration         msg succès/erreur

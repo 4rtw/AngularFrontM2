@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { AssignmentsService } from 'src/app/shared/assignments.service';
-import { Assignment } from '../assignment.model';
-import {MatSnackBar} from '@angular/material/snack-bar';
+import { Component, OnInit } from '@angular/core'
+import { ActivatedRoute, Router } from '@angular/router'
+import { AssignmentsService } from 'src/app/shared/assignments.service'
+import { Assignment } from '../assignment.model'
+import {MatSnackBar} from '@angular/material/snack-bar'
 
 @Component({
   selector: 'app-edit-assigment',
@@ -10,11 +10,11 @@ import {MatSnackBar} from '@angular/material/snack-bar';
   styleUrls: ['./edit-assigment.component.css']
 })
 export class EditAssigmentComponent implements OnInit {
-  assignment: Assignment;
+  assignment: Assignment
 
   // pour le formulaire
-  nom = '';
-  dateDeRendu = null;
+  nom = ''
+  dateDeRendu = null
 
   constructor(
     private assignmentsService: AssignmentsService,
@@ -28,47 +28,47 @@ export class EditAssigmentComponent implements OnInit {
     // par ex de :
     // http://localhost:4200/assignment/1/edit?nom=Michel%20Buffa&metier=Professeur&responsable=MIAGE#edition
 
-    console.log(this.route.snapshot.queryParams);
-    console.log(this.route.snapshot.fragment);
+    console.log(this.route.snapshot.queryParams)
+    console.log(this.route.snapshot.fragment)
 
-    this.getAssignmentById();
+    this.getAssignmentById()
   }
 
   getAssignmentById(): void {
     // les params sont des string, on va forcer la conversion
     // en number en mettant un "+" devant
-    const id: number = +this.route.snapshot.params.id;
+    const id: number = +this.route.snapshot.params.id
 
-    console.log('Dans ngOnInit de details, id = ' + id);
+    console.log('Dans ngOnInit de details, id = ' + id)
     this.assignmentsService.getAssignment(id).subscribe((assignment) => {
-      this.assignment = assignment;
+      this.assignment = assignment
 
-      this.nom = assignment.nom;
-      this.dateDeRendu = assignment.dateDeRendu;
-    });
+      this.nom = assignment.nom
+      this.dateDeRendu = assignment.dateDeRendu
+    })
   }
 
 
   onSubmit(event): void {
     // on va modifier l'assignment
-    if ((!this.nom) || (!this.dateDeRendu)) { return; }
+    if ((!this.nom) || (!this.dateDeRendu)) { return }
 
-    this.assignment.nom = this.nom;
-    this.assignment.dateDeRendu = this.dateDeRendu;
-    const oldName = this.assignment.nom;
+    this.assignment.nom = this.nom
+    this.assignment.dateDeRendu = this.dateDeRendu
+    const oldName = this.assignment.nom
 
     this.assignmentsService.updateAssignment(this.assignment)
       .subscribe(message => {
-        console.log(message);
+        console.log(message)
 
         // et on navigue vers la page d'accueil
-        this.router.navigate(['/home']);
+        this.router.navigate(['/home'])
 
         // on affiche une notification
         this.snackBar.open(oldName + ' a été modifié avec succès en ' + this.assignment.nom, 'OK', {
           duration: 2000,
-        });
-      });
+        })
+      })
 
   }
 }

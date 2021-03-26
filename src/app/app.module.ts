@@ -38,6 +38,9 @@ import { LoginComponent } from './authentication/login/login.component';
 import { RegisterComponent } from './authentication/register/register.component';
 import {DeleteConfirmPopupComponent} from './assignments/assignment-detail/assignment-detail.component';
 
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { TokenInterceptor } from './shared/token.interceptor';
+
 const routes: Routes = [
   {
     // indique que http://localhost:4200 sans rien ou avec un "/" à la fin
@@ -52,11 +55,13 @@ const routes: Routes = [
   },
   {
     path: 'add',
-    component: AddAssignmentComponent
+    component: AddAssignmentComponent,
+    canActivate : [AuthGuard]
   },
   {
     path: 'assignment/:id',
-    component: AssignmentDetailComponent
+    component: AssignmentDetailComponent,
+    canActivate : [AuthGuard]
   },
   {
     path: 'assignment/:id/edit',
@@ -103,7 +108,11 @@ const routes: Routes = [
     MatProgressBarModule,
     RouterModule.forRoot(routes), HttpClientModule, ScrollingModule
   ],
-  providers: [],
+  providers: [{
+    provide: HTTP_INTERCEPTORS,
+    useClass: TokenInterceptor,
+    multi: true
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {AuthService} from '../../shared/auth.service';
 import {Router} from '@angular/router';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -9,10 +10,14 @@ import {Router} from '@angular/router';
 })
 export class LoginComponent implements OnInit {
   hide = true;
+  login_sub: Subscription;
 
   constructor(private authService: AuthService,private router: Router) { }
 
-  ngOnInit(): void {
+  ngOnInit(): void {}
+
+  ngOnDestroy(): void {
+    this.login_sub?.unsubscribe()
   }
 
   onRegisterClick(): void {
@@ -21,19 +26,7 @@ export class LoginComponent implements OnInit {
   }
 
   login(): void {
-    // si je suis pas loggé, je me loggue, sinon, si je suis
-    // loggé je me déloggue et j'affiche la page d'accueil
-
-    if (this.authService.loggedIn) {
-      // je suis loggé
-      // et bien on se déloggue
-      this.authService.logOut();
-      // on navigue vers la page d'accueil
-      this.router.navigate(['/home']);
-    } else {
-      // je ne suis pas loggé, je me loggue
-      this.authService.logIn('admin', 'toto');
-    }
+    this.login_sub = this.authService.logIn("paul", "goavymanta").subscribe(console.log, console.error)
   }
 
   onSubmit($event: Event) {

@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import {Router} from '@angular/router';
-import {UsersService} from '../../shared/users.service';
-import {Users} from '../user.model';
+import { Component, OnInit } from '@angular/core'
+import {Router} from '@angular/router'
+import {UsersService} from '../../shared/users.service'
+import {Users} from '../user.model'
 
 @Component({
   selector: 'app-register',
@@ -9,10 +9,10 @@ import {Users} from '../user.model';
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
-  hide = true;
-  nom = '';
-  username = '';
-  password = '';
+  hide = true
+  nom = ''
+  username = ''
+  password = ''
 
   constructor(
       private router: Router,
@@ -23,17 +23,17 @@ export class RegisterComponent implements OnInit {
   }
 
   onSubmit(event): void {
-    if ((!this.username) || (!this.password) || (!this.nom)){return; }
+    if ((!this.username) || (!this.password) || (!this.nom)){return }
 
-    const nouvelUser = new Users();
-    nouvelUser.nom = this.nom;
-    nouvelUser.motDePasse = this.password;
-    nouvelUser.utilisateur = this.username;
-    nouvelUser.isAdmin = false;
+    const nouvelUser = new Users()
+    nouvelUser.nom = this.nom
+    nouvelUser.motDePasse = this.password
+    nouvelUser.utilisateur = this.username
+    nouvelUser.isAdmin = false
 
     this.usersService.addUser(nouvelUser)
         .subscribe( reponse => {
-          console.log(reponse.message);
-        });
+          console.log(reponse.message)
+        })
   }
 }
