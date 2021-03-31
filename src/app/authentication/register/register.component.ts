@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core'
 import {Router} from '@angular/router'
-import {UsersService} from '../../shared/users.service'
-import {Users} from '../user.model'
+import {UsersService} from '../../shared/services/users.service'
+import {Users} from '../../shared/models/user.model'
 
 @Component({
   selector: 'app-register',
@@ -29,7 +29,7 @@ export class RegisterComponent implements OnInit {
     nouvelUser.nom = this.nom
     nouvelUser.motDePasse = this.password
     nouvelUser.utilisateur = this.username
-    nouvelUser.isAdmin = false
+    nouvelUser.estAdmin = false
 
     this.usersService.addUser(nouvelUser)
         .subscribe( reponse => {

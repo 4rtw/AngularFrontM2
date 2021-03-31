@@ -2,8 +2,8 @@ import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling'
 import { Component, NgZone, OnInit, ViewChild } from '@angular/core'
 import { ActivatedRoute, Router } from '@angular/router'
 import { filter, map, pairwise, throttleTime } from 'rxjs/operators'
-import { AssignmentsService } from '../shared/assignments.service'
-import { Assignment } from './assignment.model'
+import { AssignmentsService } from '../shared/services/assignments.service'
+import { Assignment } from '../shared/models/assignment.model'
 import { CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop'
 import {scheduleObservable} from 'rxjs/internal/scheduled/scheduleObservable'
 import {MatSnackBar} from '@angular/material/snack-bar'
@@ -40,16 +40,13 @@ export class AssignmentsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    console.log('AVANT AFFICHAGE')
     // on regarde s'il y a page= et limit = dans l'URL
     this.route.queryParams.subscribe((queryParams) => {
-      console.log('Dans le subscribe des queryParams')
       this.page = +queryParams.page || 1
       this.limit = +queryParams.limit || 10
 
       this.getAssignments()
     })
-    console.log('getAssignments() du service appelé')
   }
 
   getAssignments(): void {
@@ -65,7 +62,6 @@ export class AssignmentsComponent implements OnInit {
         this.prevPage = data.data.prevPage
         this.hasNextPage = data.data.hasNextPage
         this.nextPage = data.data.nextPage
-        console.log('données reçues')
 
         this.assignmentsNonRendus = this.assignments.filter( item => item.rendu === false)
         this.assignmentsRendus = this.assignments.filter( item => item.rendu === true)
@@ -89,7 +85,6 @@ export class AssignmentsComponent implements OnInit {
         this.prevPage = data.data.prevPage
         this.hasNextPage = data.data.hasNextPage
         this.nextPage = data.data.nextPage
-        console.log('données reçues')
         this.assignmentsNonRendus = this.assignments.filter( item => item.rendu === false)
         this.assignmentsRendus = this.assignments.filter( item => item.rendu === true)
       })
@@ -99,9 +94,6 @@ export class AssignmentsComponent implements OnInit {
       this.ngZone.run(() => {
           if (this.hasNextPage) {
               this.page = this.nextPage
-              console.log(
-                  'Je charge de nouveaux assignments page = ' + this.page
-              )
               this.getPlusDAssignmentsPourScrolling()
           }
       })

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core'
 import { Router } from '@angular/router'
-import { AssignmentsService } from 'src/app/shared/assignments.service'
-import { Assignment } from '../assignment.model'
+import { AssignmentsService } from 'src/app/shared/services/assignments.service'
+import { Assignment } from '../../shared/models/assignment.model'
 import {MatSnackBar} from '@angular/material/snack-bar'
 
 @Component({

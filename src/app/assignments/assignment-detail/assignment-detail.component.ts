@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core'
 import { ActivatedRoute, Router } from '@angular/router'
-import { AssignmentsService } from 'src/app/shared/assignments.service'
-import { AuthService } from 'src/app/shared/auth.service'
-import { Assignment } from '../assignment.model'
+import { AssignmentsService } from 'src/app/shared/services/assignments.service'
+import { AuthService } from 'src/app/shared/services/auth.service'
+import { Assignment } from '../../shared/models/assignment.model'
 import {MatSnackBar} from '@angular/material/snack-bar'
 import {MatDialog} from '@angular/material/dialog'
 

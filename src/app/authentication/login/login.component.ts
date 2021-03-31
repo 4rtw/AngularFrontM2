@@ -1,14 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import {AuthService} from '../../shared/auth.service';
+import {AuthService} from '../../shared/services/auth.service';
 import {Router} from '@angular/router';
 import { Subscription } from 'rxjs';
+import { OnDestroy } from '@angular/core';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements  OnInit, OnDestroy{
   hide = true;
   login_sub: Subscription;
 
@@ -26,7 +27,7 @@ export class LoginComponent implements OnInit {
   }
 
   login(): void {
-    this.login_sub = this.authService.logIn("paul", "goavymanta").subscribe(console.log, console.error)
+    this.login_sub = this.authService.logIn("paul", "goavymanta").subscribe(_=>{ this.router.navigate(['/']) }, console.error)
   }
 
   onSubmit($event: Event) {

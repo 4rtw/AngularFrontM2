@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
-import {AppComponent, DialogPopupContentComponent} from './app.component';
+import {AppComponent, DialogPopupContentComponent, IdleDialogComponent} from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatButtonModule } from '@angular/material/button';
 import {MatDividerModule} from '@angular/material/divider';
@@ -31,7 +31,7 @@ import { AssignmentDetailComponent } from './assignments/assignment-detail/assig
 import { AddAssignmentComponent } from './assignments/add-assignment/add-assignment.component';
 import { Routes, RouterModule } from '@angular/router';
 import { EditAssigmentComponent } from './assignments/edit-assigment/edit-assigment.component';
-import { AuthGuard } from './shared/auth.guard';
+import { AuthGuard } from './shared/services/auth.guard';
 import { HttpClientModule } from '@angular/common/http';
 import {ScrollingModule} from '@angular/cdk/scrolling';
 import { LoginComponent } from './authentication/login/login.component';
@@ -39,7 +39,9 @@ import { RegisterComponent } from './authentication/register/register.component'
 import {DeleteConfirmPopupComponent} from './assignments/assignment-detail/assignment-detail.component';
 
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
-import { TokenInterceptor } from './shared/token.interceptor';
+import { TokenInterceptor } from './shared/interceptors/token.interceptor';
+import { UserIdleModule } from 'angular-user-idle';
+import { config } from './shared/configs/config';
 
 const routes: Routes = [
   {
@@ -89,6 +91,7 @@ const routes: Routes = [
     LoginComponent,
     RegisterComponent,
     DialogPopupContentComponent,
+    IdleDialogComponent,
     DeleteConfirmPopupComponent
   ],
   imports: [
@@ -106,7 +109,8 @@ const routes: Routes = [
     MatDialogModule,
     MatSnackBarModule,
     MatProgressBarModule,
-    RouterModule.forRoot(routes), HttpClientModule, ScrollingModule
+    RouterModule.forRoot(routes), HttpClientModule, ScrollingModule,
+    UserIdleModule.forRoot({idle: config.idle, timeout: config.timeout, ping: config.ping})
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,

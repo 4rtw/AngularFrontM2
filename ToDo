@@ -1,10 +1,14 @@
 #Tache                      nom module                 status
-idle timing                 views
-login                       auth services
-auto lougout                auth services
+idle capture                views                       ok
+idle dialog                 popup                       ok
+login                       auth services               ok
+auto lougout                auth services               ok
 creation                    storage service             ok
 interceptor                 all http                    ok
 token impl                  token services              ok
 refresh token               token services              ok
-refactor services           all services
+refactor services codes     all services
 snackbar coloration         msg succès/erreur
+force reload                onlogin / onlogout
+form validation             login
+unsub all observables       all components

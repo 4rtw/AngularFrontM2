@@ -11,8 +11,7 @@
   <!--Liste dans le menu-->
   <mat-menu #menu="matMenu">
     <button mat-menu-item (click)="popupPeuplerBD()">Peupler la BD</button>
-    <button mat-menu-item (click)="onAjouterClick()">Ajouter un assignment</button>
-    <button mat-menu-item *ngIf="!isLogedIn; else logoutButton" (click)="onConnecterClick()">Login</button>
+    <button mat-menu-item *ngIf="!isLoggedIn; else logoutButton" (click)="onConnecterClick()">Login</button>
 
     <ng-template #logoutButton><button mat-menu-item (click)="onLogoutClick()">Logout</button></ng-template>
     <!-- <mat-slide-toggle (click)="login()">Log me!</mat-slide-toggle> -->
