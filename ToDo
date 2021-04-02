@@ -9,10 +9,6 @@ token impl                  token services              ok
 refresh token               token services              ok
 refactor services codes     all services
 snackbar coloration         msg succès/erreur
-force reload                onlogin / onlogout          login ok
-form validation             login
+force reload                onlogin / onlogout          ok
+form validation             login                       ok
 unsub all observables       all components
-
-creation                    conditional logout button
-modifier                    login en dur
-

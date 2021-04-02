@@ -1,19 +1,19 @@
-import {Component, Inject, OnDestroy, OnInit} from '@angular/core'
-import { Router } from '@angular/router'
-import { AssignmentsService } from './shared/services/assignments.service'
-import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog'
-import {MatSnackBar} from '@angular/material/snack-bar'
-import { UserIdleService } from 'angular-user-idle'
-import { tapOnce } from './shared/utils/custom-operators'
-import { JwtService } from './shared/services/jwt.service'
-import { AuthService } from './shared/services/auth.service'
-import { config } from './shared/configs/config'
-import { Subscription } from 'rxjs'
+import {Component, Inject, OnDestroy, OnInit} from '@angular/core';
+import { Router } from '@angular/router';
+import { AssignmentsService } from './shared/services/assignments.service';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import {MatSnackBar} from '@angular/material/snack-bar';
+import { UserIdleService } from 'angular-user-idle';
+import { tapOnce } from './shared/utils/custom-operators';
+import { JwtService } from './shared/services/jwt.service';
+import { AuthService } from './shared/services/auth.service';
+import { config } from './shared/configs/config';
+import { Subscription } from 'rxjs';
 
 export interface DialogData {
-  idleTime_min: number
-  idleTime_sec: number
-  beforeTimeout: number
+  idleTime_min: number;
+  idleTime_sec: number;
+  beforeTimeout: number;
 }
 
 @Component({
@@ -22,47 +22,48 @@ export interface DialogData {
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit, OnDestroy{
-  dialogRef:any
+  dialogRef: any;
 
-  title         = 'Gestion des assignments'
-  idleTime      = config.idle
-  isLoggedIn    = false
-  beforeTimeout = config.timeout
-  
-  sub_timeout: Subscription
-  sub_timeStart: Subscription
+  title         = 'Gestion des assignments';
+  idleTime      = config.idle;
+  isLoggedIn    = false;
+  beforeTimeout = config.timeout;
 
-  constructor(private userIdle:UserIdleService, private router: Router, private jwtService: JwtService, private authService: AuthService, public dialog: MatDialog) {}
+  sub_timeout: Subscription;
+  sub_timeStart: Subscription;
+
+  constructor(private userIdle: UserIdleService, private router: Router, private jwtService: JwtService, private authService: AuthService, public dialog: MatDialog) {}
 
   ngOnInit() {
-    console.log(this.jwtService.isLoggedIn)
-    if(this.jwtService.isLoggedIn) {
-      this.userIdle.startWatching()
-    
+    console.log(this.jwtService.isLoggedIn);
+    if (this.jwtService.isLoggedIn) {
+      this.userIdle.startWatching();
+
       this.sub_timeStart = this.userIdle.onTimerStart().pipe(
-        tapOnce(_=> this.openDialog()),
+        tapOnce(_ => this.openDialog()),
       ).subscribe(count => {
-        if(!this.dialogRef.componentInstance)
-          this.openDialog()
-        this.dialogRef.componentInstance.data = {idleTime_min: Math.floor(this.idleTime/60), idleTime_sec: this.idleTime%60, beforeTimeout: this.beforeTimeout - (count as number)};
-      })
-      
+        if (!this.dialogRef.componentInstance) {
+          this.openDialog();
+        }
+        this.dialogRef.componentInstance.data = {idleTime_min: Math.floor(this.idleTime / 60), idleTime_sec: this.idleTime % 60, beforeTimeout: this.beforeTimeout - (count as number)};
+      });
+
       this.sub_timeout = this.userIdle.onTimeout().subscribe(_ => {
         this.authService.logOut().subscribe(_ => {
-          this.dialogRef.close()
-          this.userIdle.stopTimer()
-          this.userIdle.stopWatching()
-          this.router.navigate(['/login'])
-        })
+          this.dialogRef.close();
+          this.userIdle.stopTimer();
+          this.userIdle.stopWatching();
+          this.router.navigate(['/login']);
+        });
       });
     }
 
-    this.isLoggedIn = this.jwtService.isLoggedIn
+    this.isLoggedIn = this.jwtService.isLoggedIn;
   }
 
   ngOnDestroy(): void {
-    this.sub_timeStart?.unsubscribe()
-    this.sub_timeout?.unsubscribe()
+    this.sub_timeStart?.unsubscribe();
+    this.sub_timeout?.unsubscribe();
   }
 
   openDialog(): void {
@@ -75,23 +76,24 @@ export class AppComponent implements OnInit, OnDestroy{
 
   /* ---------------------MILA HATSARAINA--------------------------------- */
   onConnecterClick(): void{
-    this.router.navigate(['/login'])
+    this.router.navigate(['/login']);
   }
 
   onAjouterClick(): void {
-    this.router.navigate(['/add'])
+    this.router.navigate(['/add']);
   }
 
   onLogoutClick(): void {
-    this.isLoggedIn = false
+    this.isLoggedIn = false;
 
-    this.authService.logOut().subscribe(_=> {
-      this.router.navigate(['/'])
-    })
+    this.authService.logOut().subscribe(_ => {
+      this.router.navigate(['/']);
+      location.reload();
+    });
   }
 
   popupPeuplerBD(): void {
-    const dialogRef = this.dialog.open(DialogPopupContentComponent)
+    this.dialog.open(DialogPopupContentComponent);
   }
   /* ------------------------------------------------------------------- */
 }
@@ -103,7 +105,7 @@ export class AppComponent implements OnInit, OnDestroy{
   styleUrls: ['./app.component.css']
 })
 export class DialogPopupContentComponent{
-  isBegin: boolean
+  isBegin: boolean;
 
   constructor(private assignmentsService: AssignmentsService,
               private router: Router,
@@ -113,16 +115,16 @@ export class DialogPopupContentComponent{
     // version naive et simple
     // this.assignmentsService.peuplerBD()
 
-    this.isBegin = true
+    this.isBegin = true;
     // meilleure version :
     this.assignmentsService.peuplerBDAvecForkJoin()
         .subscribe(() => {
-          console.log('LA BD A ETE PEUPLEE, TOUS LES ASSIGNMENTS AJOUTES, ON RE-AFFICHE LA LISTE')
-          this.router.navigate(['/home'], {replaceUrl: true})
-          this.snackBar.open('LA BD A ETE PEUPLEE, TOUS LES ASSIGNMENTS AJOUTES', 'OK')
-        })
+          console.log('LA BD A ETE PEUPLEE, TOUS LES ASSIGNMENTS AJOUTES, ON RE-AFFICHE LA LISTE');
+          this.router.navigate(['/home'], {replaceUrl: true});
+          this.snackBar.open('LA BD A ETE PEUPLEE, TOUS LES ASSIGNMENTS AJOUTES', 'OK');
+        });
 
-    setTimeout( () => { this.isBegin = false }, 1000)
+    setTimeout( () => { this.isBegin = false; }, 1000);
   }
 }
 
@@ -133,26 +135,33 @@ export class DialogPopupContentComponent{
 })
 export class IdleDialogComponent implements OnDestroy{
 
-  sub_loggout: Subscription
+  sub_loggout: Subscription;
 
-  constructor(private userIdle: UserIdleService, private router: Router, private authService: AuthService, public dialogRef: MatDialogRef<IdleDialogComponent>, @Inject(MAT_DIALOG_DATA) public data: DialogData) {}
+  constructor(
+      private userIdle: UserIdleService,
+      private router: Router,
+      private authService: AuthService,
+      public dialogRef: MatDialogRef<IdleDialogComponent>,
+      @Inject(MAT_DIALOG_DATA) public data: DialogData
+  ) {}
 
   ngOnDestroy(): void {
-    this.sub_loggout?.unsubscribe()
+    this.sub_loggout?.unsubscribe();
   }
 
   onNoClick(): void {
     this.sub_loggout = this.authService.logOut().subscribe(_ => {
-      this.dialogRef.close()
-      this.userIdle.stopTimer()
-      this.userIdle.stopWatching()
+      this.dialogRef.close();
+      this.userIdle.stopTimer();
+      this.userIdle.stopWatching();
       this.router.navigate(['/login'])
-    })
+          .then(location.reload);
+    });
   }
 
   onStayClick(): void {
     this.dialogRef.close();
-    this.userIdle.stopTimer()
-    this.userIdle.resetTimer()
+    this.userIdle.stopTimer();
+    this.userIdle.resetTimer();
   }
 }
