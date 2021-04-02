@@ -12,13 +12,15 @@ import { OnDestroy } from '@angular/core';
 export class LoginComponent implements  OnInit, OnDestroy{
   hide = true;
   login_sub: Subscription;
+  username: string;
+  password: string;
 
-  constructor(private authService: AuthService,private router: Router) { }
+  constructor(private authService: AuthService, private router: Router) { }
 
   ngOnInit(): void {}
 
   ngOnDestroy(): void {
-    this.login_sub?.unsubscribe()
+    this.login_sub?.unsubscribe();
   }
 
   onRegisterClick(): void {
@@ -26,11 +28,15 @@ export class LoginComponent implements  OnInit, OnDestroy{
     console.log('register here redirected');
   }
 
-  login(): void {
-    this.login_sub = this.authService.logIn("paul", "goavymanta").subscribe(_=>{ this.router.navigate(['/']) }, console.error)
+  login(user, pass): void {
+    this.login_sub = this.authService
+        .logIn(user, pass)
+        .subscribe(_ => {
+          this.router.navigateByUrl('/').then(r => location.reload());
+          }, console.error);
   }
 
-  onSubmit($event: Event) {
-
+  onSubmit($event: Event): void {
+    this.login(this.username, this.password);
   }
 }
