@@ -32,7 +32,13 @@ export class AppComponent implements OnInit, OnDestroy{
   sub_timeout: Subscription;
   sub_timeStart: Subscription;
 
-  constructor(private userIdle: UserIdleService, private router: Router, private jwtService: JwtService, private authService: AuthService, public dialog: MatDialog) {}
+  constructor(
+      private userIdle: UserIdleService,
+      private router: Router,
+      private jwtService: JwtService,
+      private authService: AuthService,
+      public dialog: MatDialog
+  ) {}
 
   ngOnInit() {
     console.log(this.jwtService.isLoggedIn);
@@ -45,7 +51,10 @@ export class AppComponent implements OnInit, OnDestroy{
         if (!this.dialogRef.componentInstance) {
           this.openDialog();
         }
-        this.dialogRef.componentInstance.data = {idleTime_min: Math.floor(this.idleTime / 60), idleTime_sec: this.idleTime % 60, beforeTimeout: this.beforeTimeout - (count as number)};
+        this.dialogRef.componentInstance.data = {
+          idleTime_min: Math.floor(this.idleTime / 60),
+          idleTime_sec: this.idleTime % 60,
+          beforeTimeout: this.beforeTimeout - (count as number)};
       });
 
       this.sub_timeout = this.userIdle.onTimeout().subscribe(_ => {
@@ -147,6 +156,7 @@ export class IdleDialogComponent implements OnDestroy{
 
   ngOnDestroy(): void {
     this.sub_loggout?.unsubscribe();
+    location.reload();
   }
 
   onNoClick(): void {
@@ -154,8 +164,7 @@ export class IdleDialogComponent implements OnDestroy{
       this.dialogRef.close();
       this.userIdle.stopTimer();
       this.userIdle.stopWatching();
-      this.router.navigate(['/login'])
-          .then(location.reload);
+      this.router.navigate(['/login']).then(() => location.reload());
     });
   }
 

@@ -15,8 +15,8 @@ export class UsersService {
       private http: HttpClient
   ) { }
 
-  uri = 'https://backend-nodejs-m2-n-a.herokuapp.com/api/users'
-  uriForAdd = 'https://backend-nodejs-m2-n-a.herokuapp.com/api/authentifications/register'
+  uri = 'https://backend-nodejs-m2-n-a.herokuapp.com/api/users';
+  uriForAdd = 'https://backend-nodejs-m2-n-a.herokuapp.com/api/authentifications/register';
 
   // uri = 'http://localhost:8010/api/users';
   // uriForAdd = 'http://localhost:8010/api/authentifications/register';
