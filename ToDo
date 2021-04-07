@@ -7,8 +7,8 @@ creation                    storage service             ok
 interceptor                 all http                    ok
 token impl                  token services              ok
 refresh token               token services              ok
-refactor services codes     all services
+refactor services codes     all services                ok
 snackbar coloration         msg succès/erreur           ok
 force reload                onlogin / onlogout          ok
 form validation             login                       ok
-unsub all observables       all components
+unsub all observables       all components              ok

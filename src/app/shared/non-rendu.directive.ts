@@ -1,13 +1,11 @@
-import { Directive, ElementRef } from '@angular/core'
+import {Directive, ElementRef} from '@angular/core';
 
 @Directive({
-  selector: '[appNonRendu]'
+    selector: '[appNonRendu]'
 })
 export class NonRenduDirective {
 
-  constructor(el: ElementRef) {
-    el.nativeElement.style.color = 'red';
-
-  }
-
+    constructor(el: ElementRef) {
+        el.nativeElement.style.color = 'red';
+    }
 }

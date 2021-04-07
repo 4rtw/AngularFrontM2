@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {Users} from '../models/user.model';
 import {Data} from '@angular/router';
 import {Observable, of} from 'rxjs';
@@ -6,61 +6,61 @@ import {HttpClient} from '@angular/common/http';
 import {catchError, map, tap} from 'rxjs/operators';
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
 export class UsersService {
-  users: Users[];
+    users: Users[];
+    uri = 'https://backend-nodejs-m2-n-a.herokuapp.com/api/users';
+    uriForAdd = 'https://backend-nodejs-m2-n-a.herokuapp.com/api/authentifications/register';
 
-  constructor(
-      private http: HttpClient
-  ) { }
+    constructor(
+        private http: HttpClient
+    ) {
+    }
 
-  uri = 'https://backend-nodejs-m2-n-a.herokuapp.com/api/users';
-  uriForAdd = 'https://backend-nodejs-m2-n-a.herokuapp.com/api/authentifications/register';
+    // uri = 'http://localhost:8010/api/users'
+    // uriForAdd = 'http://localhost:8010/api/authentifications/register'
 
-  // uri = 'http://localhost:8010/api/users'
-  // uriForAdd = 'http://localhost:8010/api/authentifications/register'
+    getUsersPagine(page: number, limit: number): Observable<any> {
+        return this.http.get<Users>(this.uri + '?page=' + page + '&limit=' + limit);
+    }
 
-  getUsersPagine(page: number, limit: number): Observable<any> {
-    return this.http.get<Users>(this.uri + '?page=' + page + '&limit=' + limit);
-  }
+    getUser(id: number): Observable<Users> {
+        return this.http.get<Data>(this.uri + '/' + id)
+            .pipe(
+                map((a) => {
+                    return a.data;
+                }),
+                tap((a) => {
+                    console.log('TRACE DANS TAP: j\'ai reçu ' + a.nom);
+                }),
+                catchError(this.handleError<any>('### catchError: getUser by id avec id = ' + id))
+            );
+    }
 
-  getUser(id: number): Observable<Users>{
-    return this.http.get<Data>(this.uri + '/' + id)
-        .pipe(
-            map((a) => {
-              return a.data;
-            }),
-            tap((a) => {
-              console.log('TRACE DANS TAP: j\'ai reçu ' + a.nom);
-            }),
-            catchError(this.handleError<any>('### catchError: getUser by id avec id = ' + id))
-        );
-  }
+    generateId(): number {
+        return Math.round(Math.random() * 100000);
+    }
 
-  private handleError<T>(operation: any, result?: T) {
-    return (error: any): Observable<T> => {
-      console.log(error); // pour afficher dans la console
-      console.log(operation + ' a échoué ' + error.message);
+    addUser(user: Users): Observable<any> {
+        user.id = this.generateId();
+        return this.http.post(this.uriForAdd, user);
+    }
 
-      return of(result as T);
-    };
-  }
+    updateUser(user: Users): Observable<any> {
+        return this.http.put(this.uri, user);
+    }
 
-  generateId(): number{
-    return Math.round(Math.random() * 100000);
-  }
+    deleteUser(user: Users): Observable<any> {
+        return this.http.delete(this.uri + '/' + user.id);
+    }
 
-  addUser(user: Users): Observable<any>{
-    user.id = this.generateId();
-    return this.http.post(this.uriForAdd, user);
-  }
+    private handleError<T>(operation: any, result?: T) {
+        return (error: any): Observable<T> => {
+            console.log(error); // pour afficher dans la console
+            console.log(operation + ' a échoué ' + error.message);
 
-  updateUser(user: Users): Observable<any>{
-    return this.http.put(this.uri, user);
-  }
-
-  deleteUser(user: Users): Observable<any>{
-    return this.http.delete(this.uri + '/' + user.id);
-  }
+            return of(result as T);
+        };
+    }
 }

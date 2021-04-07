@@ -1,14 +1,14 @@
-import {Component, Inject, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
-import {AssignmentsService} from './shared/services/assignments.service';
-import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
-import {MatSnackBar} from '@angular/material/snack-bar';
+import {MatDialog} from '@angular/material/dialog';
 import {UserIdleService} from 'angular-user-idle';
 import {tapOnce} from './shared/utils/custom-operators';
 import {JwtService} from './shared/services/jwt.service';
 import {AuthService} from './shared/services/auth.service';
 import {config} from './shared/configs/config';
 import {Subscription} from 'rxjs';
+import {PeuplerDBDialogComponent} from './dialog-components/peuplerDB-dialog-component/peuplerdb-dialog.component';
+import {IdleDialogComponent} from './dialog-components/idle-dialog-component/idle-dialog.component';
 
 export interface DialogData {
     idleTime_min: number;
@@ -22,6 +22,9 @@ export interface DialogData {
     styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit, OnDestroy {
+
+    static isLoggedIn: boolean;
+    assignmentSub: Subscription[] = [];
     dialogRef: any;
 
     title = 'Gestion des assignments';
@@ -41,7 +44,7 @@ export class AppComponent implements OnInit, OnDestroy {
     ) {
     }
 
-    ngOnInit() {
+    ngOnInit(): void {
         console.log(this.jwtService.isLoggedIn);
         if (this.jwtService.isLoggedIn) {
             this.userIdle.startWatching();
@@ -75,6 +78,9 @@ export class AppComponent implements OnInit, OnDestroy {
     ngOnDestroy(): void {
         this.sub_timeStart?.unsubscribe();
         this.sub_timeout?.unsubscribe();
+        this.assignmentSub.forEach((subscription) => {
+            subscription.unsubscribe();
+        });
     }
 
     openDialog(): void {
@@ -85,11 +91,11 @@ export class AppComponent implements OnInit, OnDestroy {
     }
 
 
-    /* ---------------------MILA HATSARAINA--------------------------------- */
     onConnecterClick(): void {
         this.router.navigate(['/login']);
     }
 
+    // TODO: Boutton Ajouter
     onAjouterClick(): void {
         this.router.navigate(['/add']);
     }
@@ -97,87 +103,16 @@ export class AppComponent implements OnInit, OnDestroy {
     onLogoutClick(): void {
         this.isLoggedIn = false;
 
-        this.authService.logOut().subscribe(_ => {
-            this.router.navigate(['/']);
-            location.reload();
-        });
+        this.assignmentSub.push(
+            this.authService.logOut().subscribe(_ => {
+                this.router.navigate(['/']);
+                location.reload();
+            })
+        );
     }
 
     popupPeuplerBD(): void {
         this.dialog.open(PeuplerDBDialogComponent);
     }
 
-    /* ------------------------------------------------------------------- */
-}
-
-
-@Component({
-    selector: 'app-dialog-popup-content',
-    templateUrl: 'peuplerDB-dialog-popup-content.html',
-    styleUrls: ['./app.component.css']
-})
-export class PeuplerDBDialogComponent {
-    isBegin: boolean;
-
-    constructor(private assignmentsService: AssignmentsService,
-                private router: Router,
-                private snackBar: MatSnackBar) {
-    }
-
-    peuplerBD(): void {
-        // version naive et simple
-        // this.assignmentsService.peuplerBD()
-
-        this.isBegin = true;
-        // meilleure version :
-        this.assignmentsService.peuplerBDAvecForkJoin()
-            .subscribe(() => {
-                console.log('LA BD A ETE PEUPLEE, TOUS LES ASSIGNMENTS AJOUTES, ON RE-AFFICHE LA LISTE');
-                this.router.navigate(['/home'], {replaceUrl: true});
-                this.snackBar.open('LA BD A ETE PEUPLEE, TOUS LES ASSIGNMENTS AJOUTES', 'OK');
-            });
-
-        setTimeout(() => {
-            this.isBegin = false;
-        }, 1000);
-    }
-}
-
-@Component({
-    selector: 'app-idle-dialog-content',
-    templateUrl: 'idle-dialog-content.html',
-    styleUrls: ['./app.component.css']
-})
-export class IdleDialogComponent implements OnDestroy {
-
-    sub_loggout: Subscription;
-
-    constructor(
-        private userIdle: UserIdleService,
-        private router: Router,
-        private authService: AuthService,
-        public dialogRef: MatDialogRef<IdleDialogComponent>,
-        @Inject(MAT_DIALOG_DATA) public data: DialogData
-    ) {
-    }
-
-    ngOnDestroy(): void {
-        this.sub_loggout?.unsubscribe();
-        location.reload();
-    }
-
-    onNoClick(): void {
-        this.sub_loggout = this.authService.logOut().subscribe(_ => {
-            this.dialogRef.close();
-            this.userIdle.stopTimer();
-            this.userIdle.stopWatching();
-            this.router.navigate(['/login']).then(() => location.reload());
-        });
-    }
-
-    onStayClick(): void {
-        this.dialogRef.close();
-        this.userIdle.stopTimer();
-        this.userIdle.resetTimer();
-    }
 }

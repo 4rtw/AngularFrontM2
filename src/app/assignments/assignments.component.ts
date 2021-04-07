@@ -1,21 +1,25 @@
 import {CdkVirtualScrollViewport} from '@angular/cdk/scrolling';
-import {Component, NgZone, OnInit, ViewChild} from '@angular/core';
+import {Component, NgZone, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {filter, map, pairwise, throttleTime} from 'rxjs/operators';
 import {AssignmentsService} from '../shared/services/assignments.service';
 import {Assignment} from '../shared/models/assignment.model';
 import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
 import {MatSnackBar} from '@angular/material/snack-bar';
+import {Subscription} from 'rxjs';
+import {JwtService} from '../shared/services/jwt.service';
 
 @Component({
     selector: 'app-assignments',
     templateUrl: './assignments.component.html',
     styleUrls: ['./assignments.component.css'],
 })
-export class AssignmentsComponent implements OnInit {
+export class AssignmentsComponent implements OnInit, OnDestroy {
     assignments: Assignment[];
     assignmentsRendus: Assignment[] = [];
     assignmentsNonRendus: Assignment[] = [];
+    assignmentSub: Subscription[] = [];
+    dragAndDropSwitch: boolean;
     page = 1;
     limit = 100;
     totalDocs: number;
@@ -34,59 +38,70 @@ export class AssignmentsComponent implements OnInit {
         private route: ActivatedRoute,
         private router: Router,
         private ngZone: NgZone,
-        private snackBar: MatSnackBar
+        private snackBar: MatSnackBar,
+        private jwtService: JwtService
     ) {
     }
 
     ngOnInit(): void {
         // on regarde s'il y a page= et limit = dans l'URL
-        this.route.queryParams.subscribe((queryParams) => {
-            this.page = +queryParams.page || 1;
-            this.limit = +queryParams.limit || 10;
+        this.assignmentSub.push(
+            this.route.queryParams.subscribe((queryParams) => {
+                this.page = +queryParams.page || 1;
+                this.limit = +queryParams.limit || 10;
 
-            this.getAssignments();
-        });
+                this.getAssignments();
+            })
+        );
+
+        this.dragAndDropSwitch = !this.jwtService.isLoggedIn;
+
     }
 
     getAssignments(): void {
-        this.assignmentsService
-            .getAssignmentsPagine(this.page, this.limit)
-            .subscribe((data) => {
-                this.assignments = data.data.docs;
-                this.page = data.data.page;
-                this.limit = data.data.limit;
-                this.totalDocs = data.data.totalDocs;
-                this.totalPages = data.data.totalPages;
-                this.hasPrevPage = data.data.hasPrevPage;
-                this.prevPage = data.data.prevPage;
-                this.hasNextPage = data.data.hasNextPage;
-                this.nextPage = data.data.nextPage;
+        this.assignmentSub.push(
+            this.assignmentsService
+                .getAssignmentsPagine(this.page, this.limit)
+                .subscribe((data) => {
+                    this.assignments = data.data.docs;
+                    this.page = data.data.page;
+                    this.limit = data.data.limit;
+                    this.totalDocs = data.data.totalDocs;
+                    this.totalPages = data.data.totalPages;
+                    this.hasPrevPage = data.data.hasPrevPage;
+                    this.prevPage = data.data.prevPage;
+                    this.hasNextPage = data.data.hasNextPage;
+                    this.nextPage = data.data.nextPage;
 
-                this.assignmentsNonRendus = this.assignments.filter(item => item.rendu === false);
-                this.assignmentsRendus = this.assignments.filter(item => item.rendu === true);
-                this.checkIfEnoughtItems();
-            });
+                    this.assignmentsNonRendus = this.assignments.filter(item => item.rendu === false);
+                    this.assignmentsRendus = this.assignments.filter(item => item.rendu === true);
+                    this.checkIfEnoughtItems();
+                })
+        );
     }
 
     getPlusDAssignmentsPourScrolling(): void {
-        this.assignmentsService
-            .getAssignmentsPagine(this.page, this.limit)
-            .subscribe((data) => {
-                // au lieu de remplacer this.assignments par les nouveaux assignments récupérés
-                // on va les ajouter à ceux déjà présents...
-                this.assignments = this.assignments.concat(data.data.docs);
-                // this.assignments = [...this.assignments, ...data.docs]
-                this.page = data.data.page;
-                this.limit = data.data.limit;
-                this.totalDocs = data.data.totalDocs;
-                this.totalPages = data.data.totalPages;
-                this.hasPrevPage = data.data.hasPrevPage;
-                this.prevPage = data.data.prevPage;
-                this.hasNextPage = data.data.hasNextPage;
-                this.nextPage = data.data.nextPage;
-                this.assignmentsNonRendus = this.assignments.filter(item => item.rendu === false);
-                this.assignmentsRendus = this.assignments.filter(item => item.rendu === true);
-            });
+        this.assignmentSub.push(
+            this.assignmentsService
+                .getAssignmentsPagine(this.page, this.limit)
+                .subscribe((data) => {
+                        // au lieu de remplacer this.assignments par les nouveaux assignments récupérés
+                        // on va les ajouter à ceux déjà présents...
+                        this.assignments = this.assignments.concat(data.data.docs);
+                        // this.assignments = [...this.assignments, ...data.docs]
+                        this.page = data.data.page;
+                        this.limit = data.data.limit;
+                        this.totalDocs = data.data.totalDocs;
+                        this.totalPages = data.data.totalPages;
+                        this.hasPrevPage = data.data.hasPrevPage;
+                        this.prevPage = data.data.prevPage;
+                        this.hasNextPage = data.data.hasNextPage;
+                        this.nextPage = data.data.nextPage;
+                        this.assignmentsNonRendus = this.assignments.filter(item => item.rendu === false);
+                        this.assignmentsRendus = this.assignments.filter(item => item.rendu === true);
+                    }
+                )
+        );
     }
 
     getNextData(): void {
@@ -105,22 +120,25 @@ export class AssignmentsComponent implements OnInit {
     }
 
     onScrollList(scroller: CdkVirtualScrollViewport): void {
-        scroller
-            .elementScrolled()
-            .pipe(
-                map((event) => {
-                    return scroller.measureScrollOffset('bottom');
-                }),
-                pairwise(),
-                filter(([y1, y2]) => y2 < y1 && y2 < 200),
-                throttleTime(200)
-                // on ne va en fait envoyer le dernier événement que toutes les 200ms.
-                // on va ignorer tous les évéments arrivés et ne garder que le dernier toutes
-                // les 200ms
-            )
-            .subscribe((dist) => {
-                this.getNextData();
-            });
+        this.assignmentSub.push(
+            scroller
+                .elementScrolled()
+                .pipe(
+                    map((event) => {
+                        return scroller.measureScrollOffset('bottom');
+                    }),
+                    pairwise(),
+                    filter(([y1, y2]) => y2 < y1 && y2 < 200),
+                    throttleTime(200)
+                    // on ne va en fait envoyer le dernier événement que toutes les 200ms.
+                    // on va ignorer tous les évéments arrivés et ne garder que le dernier toutes
+                    // les 200ms
+                )
+                .subscribe((dist) => {
+                        this.getNextData();
+                    }
+                )
+        );
     }
 
     /*
@@ -137,9 +155,12 @@ export class AssignmentsComponent implements OnInit {
         // event = l'assignment à supprimer
 
         // this.assignments.splice(index, 1)
-        this.assignmentsService.deleteAssignment(event).subscribe((message) => {
-            console.log(message);
-        });
+        this.assignmentSub.push(
+            this.assignmentsService.deleteAssignment(event)
+                .subscribe((message) => {
+                    console.log(message);
+                })
+        );
     }
 
     drop(event: CdkDragDrop<Assignment[]>): void {
@@ -164,20 +185,22 @@ export class AssignmentsComponent implements OnInit {
 
             this.checkIfEnoughtItems();
 
-            this.assignmentsService.updateAssignment(theAssignment).subscribe(
-                message => {
-                    console.log(message);
-                    const rendu = event.item.data.rendu ? 'rendu avec succes' : 'non rendu';
-                    this.snackBar.open('Assignment ' + rendu, 'OK', {
-                        duration: 2000,
-                    });
-                }, error => {
-                    console.log(error.message);
-                    this.snackBar.open('Transfert de l\'assignment échoué', 'OK', {
-                        duration: 5000, panelClass: ['mat-error']
-                    });
-                    location.reload();
-                }
+            this.assignmentSub.push(
+                this.assignmentsService.updateAssignment(theAssignment).subscribe(
+                    message => {
+                        console.log(message);
+                        const rendu = event.item.data.rendu ? 'rendu avec succes' : 'non rendu';
+                        this.snackBar.open('Assignment ' + rendu, 'OK', {
+                            duration: 2000,
+                        });
+                    },
+                    error => {
+                        console.log(error.message);
+                        this.snackBar.open('Transfert de l\'assignment échoué', 'OK', {
+                            duration: 2000, panelClass: ['mat-error']
+                        });
+                    }
+                )
             );
 
             transferArrayItem(event.previousContainer.data,
@@ -185,5 +208,11 @@ export class AssignmentsComponent implements OnInit {
                 event.previousIndex,
                 event.currentIndex);
         }
+    }
+
+    ngOnDestroy(): void {
+        this.assignmentSub.forEach((subscription) => {
+            subscription.unsubscribe();
+        });
     }
 }

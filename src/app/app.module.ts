@@ -1,7 +1,7 @@
 import {NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 
-import {AppComponent, PeuplerDBDialogComponent, IdleDialogComponent} from './app.component';
+import {AppComponent} from './app.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatButtonModule} from '@angular/material/button';
 import {MatDividerModule} from '@angular/material/divider';
@@ -27,18 +27,17 @@ import {AssignmentsComponent} from './assignments/assignments.component';
 import {RenduDirective} from './shared/rendu.directive';
 import {NonRenduDirective} from './shared/non-rendu.directive';
 import {FormsModule} from '@angular/forms';
-import {AssignmentDetailComponent} from './assignments/assignment-detail/assignment-detail.component';
+import {AssignmentDetailComponent, DeleteConfirmPopupComponent} from './assignments/assignment-detail/assignment-detail.component';
 import {AddAssignmentComponent} from './assignments/add-assignment/add-assignment.component';
-import {Routes, RouterModule} from '@angular/router';
+import {RouterModule, Routes} from '@angular/router';
 import {EditAssigmentComponent} from './assignments/edit-assigment/edit-assigment.component';
 import {AuthGuard} from './shared/services/auth.guard';
-import {HttpClientModule} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {ScrollingModule} from '@angular/cdk/scrolling';
 import {LoginComponent} from './authentication/login/login.component';
 import {RegisterComponent} from './authentication/register/register.component';
-import {DeleteConfirmPopupComponent} from './assignments/assignment-detail/assignment-detail.component';
-
-import {HTTP_INTERCEPTORS} from '@angular/common/http';
+import {PeuplerDBDialogComponent} from './dialog-components/peuplerDB-dialog-component/peuplerdb-dialog.component';
+import {IdleDialogComponent} from './dialog-components/idle-dialog-component/idle-dialog.component';
 import {TokenInterceptor} from './shared/interceptors/token.interceptor';
 import {UserIdleModule} from 'angular-user-idle';
 import {config} from './shared/configs/config';

@@ -1,14 +1,14 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import jwt_decode from 'jwt-decode';
-import { LocalStorageService } from './local-storage.service';
+import {LocalStorageService} from './local-storage.service';
 
 @Injectable({
     providedIn: 'root',
-  })
-  export class JwtService {
+})
+export class JwtService {
     isLoggedIn = false;
     jwtToken: string;
-    decoded: { [key: string]: string};
+    decoded: { [key: string]: string };
 
     constructor(private localStorageService: LocalStorageService) {
         const payload = this.localStorageService.get('payload');
@@ -43,7 +43,7 @@ import { LocalStorageService } from './local-storage.service';
         const exp: number = this.decoded ? parseInt(this.decoded.exp) : null;
 
         if (exp) {
-            return ( (exp * 1000 ) - Date.now() < 5000 );
+            return ((exp * 1000) - Date.now() < 5000);
         }
         return true;
     }
@@ -53,4 +53,4 @@ import { LocalStorageService } from './local-storage.service';
         this.jwtToken = null;
         this.isLoggedIn = false;
     }
-  }
+}

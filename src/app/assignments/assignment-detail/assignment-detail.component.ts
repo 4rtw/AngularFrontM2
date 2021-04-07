@@ -1,25 +1,25 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {AssignmentsService} from 'src/app/shared/services/assignments.service';
-import {AuthService} from 'src/app/shared/services/auth.service';
 import {Assignment} from '../../shared/models/assignment.model';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {MatDialog} from '@angular/material/dialog';
+import {Subscription} from 'rxjs';
 
 @Component({
     selector: 'app-assignment-detail',
     templateUrl: './assignment-detail.component.html',
     styleUrls: ['./assignment-detail.component.css'],
 })
-export class AssignmentDetailComponent implements OnInit {
+export class AssignmentDetailComponent implements OnInit, OnDestroy {
     // passé sous forme d'attribut HTML
     assignmentTransmis: Assignment;
+    assignmentSub: Subscription[] = [];
 
     constructor(
         private assignmentsService: AssignmentsService,
         private route: ActivatedRoute,
         private router: Router,
-        private authService: AuthService,
         public dialog: MatDialog
     ) {
     }
@@ -28,27 +28,37 @@ export class AssignmentDetailComponent implements OnInit {
         this.getAssignmentById();
     }
 
+    ngOnDestroy(): void {
+        this.assignmentSub.forEach((subscription) => {
+            subscription.unsubscribe();
+        });
+    }
+
     getAssignmentById(): void {
         // les params sont des string, on va forcer la conversion
         // en number en mettant un "+" devant
         const id: number = +this.route.snapshot.params.id;
 
         console.log('Dans ngOnInit de details, id = ' + id);
-        this.assignmentsService.getAssignment(id).subscribe((assignment) => {
-            this.assignmentTransmis = assignment;
-        });
+        this.assignmentSub.push(
+            this.assignmentsService.getAssignment(id).subscribe((assignment) => {
+                this.assignmentTransmis = assignment;
+            })
+        );
     }
 
     onAssignmentRendu(): void {
         this.assignmentTransmis.rendu = true;
 
-        this.assignmentsService
-            .updateAssignment(this.assignmentTransmis)
-            .subscribe((reponse) => {
-                console.log(reponse.message);
-                // et on navigue vers la page d'accueil qui affiche la liste
-                this.router.navigate(['/home']);
-            });
+        this.assignmentSub.push(
+            this.assignmentsService
+                .updateAssignment(this.assignmentTransmis)
+                .subscribe((reponse) => {
+                    console.log(reponse.message);
+                    // et on navigue vers la page d'accueil qui affiche la liste
+                    this.router.navigate(['/home']);
+                })
+        );
 
         // this.assignmentTransmis = null
     }
@@ -76,8 +86,9 @@ export class AssignmentDetailComponent implements OnInit {
     selector: 'app-delete-confirm-popup-content',
     templateUrl: './delete-confirm-popup-content.html'
 })
-export class DeleteConfirmPopupComponent implements OnInit {
+export class DeleteConfirmPopupComponent implements OnInit, OnDestroy {
     assignmentTransmis: Assignment;
+    assignmentSub: Subscription[] = [];
 
     constructor(
         private assignmentsService: AssignmentsService,
@@ -96,34 +107,44 @@ export class DeleteConfirmPopupComponent implements OnInit {
         const id = Number(this.router.url.split('/', 3)[2]);
 
         console.log('Dans ngOnInit de details, id = ' + id);
-        this.assignmentsService.getAssignment(id).subscribe((assignment) => {
-            this.assignmentTransmis = assignment;
-        });
+        this.assignmentSub.push(
+            this.assignmentsService.getAssignment(id).subscribe((assignment) => {
+                this.assignmentTransmis = assignment;
+            })
+        );
     }
 
     onDelete(): void {
         const nom = this.assignmentTransmis.nom;
-        this.assignmentsService
-            .deleteAssignment(this.assignmentTransmis)
-            .subscribe((reponse) => {
-                    console.log(reponse.message);
+        this.assignmentSub.push(
+            this.assignmentsService
+                .deleteAssignment(this.assignmentTransmis)
+                .subscribe((reponse) => {
+                        console.log(reponse.message);
 
-                    // on cache l'affichage du détail
-                    this.assignmentTransmis = null;
+                        // on cache l'affichage du détail
+                        this.assignmentTransmis = null;
 
-                    // on affiche une notification
-                    this.snackbar.open(nom + ' a été supprimé avec succès', 'OK', {
-                        duration: 2000,
-                    });
-                },
-                error => {
-                    this.snackbar.open('La suppression de l\'assignment' + nom + ' a échoué', 'OK', {
-                        duration: 2000, panelClass: ['mat-error']
-                    });
-                },
-                () => {
-                    // et on navigue vers la page d'accueil qui affiche la liste
-                    this.router.navigate(['/home']);
-                });
+                        // on affiche une notification
+                        this.snackbar.open(nom + ' a été supprimé avec succès', 'OK', {
+                            duration: 2000,
+                        });
+
+                        // et on navigue vers la page d'accueil qui affiche la liste
+                        this.router.navigate(['/home']);
+                    },
+                    error => {
+                        console.log(error);
+                        this.snackbar.open('La suppression de l\'assignment' + nom + ' a échoué', 'OK', {
+                            duration: 2000, panelClass: ['mat-error']
+                        });
+                    })
+        );
+    }
+
+    ngOnDestroy(): void {
+        this.assignmentSub.forEach((subscription) => {
+            subscription.unsubscribe();
+        });
     }
 }

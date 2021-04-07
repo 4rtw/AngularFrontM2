@@ -1,16 +1,18 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {AssignmentsService} from 'src/app/shared/services/assignments.service';
 import {Assignment} from '../../shared/models/assignment.model';
 import {MatSnackBar} from '@angular/material/snack-bar';
+import {Subscription} from 'rxjs';
 
 @Component({
     selector: 'app-edit-assigment',
     templateUrl: './edit-assigment.component.html',
     styleUrls: ['./edit-assigment.component.css']
 })
-export class EditAssigmentComponent implements OnInit {
+export class EditAssigmentComponent implements OnInit, OnDestroy {
     assignment: Assignment;
+    assignmentSub: Subscription[] = [];
 
     // pour le formulaire
     nom = '';
@@ -24,13 +26,19 @@ export class EditAssigmentComponent implements OnInit {
     ) {
     }
 
+    ngOnDestroy(): void {
+        this.assignmentSub.forEach((subscription) => {
+            subscription.unsubscribe();
+        });
+    }
+
     ngOnInit(): void {
         // ici on montre comment on peut récupérer les parametres http
         // par ex de :
         // http://localhost:4200/assignment/1/edit?nom=Michel%20Buffa&metier=Professeur&responsable=MIAGE#edition
 
-        console.log(this.route.snapshot.queryParams);
-        console.log(this.route.snapshot.fragment);
+        // console.log(this.route.snapshot.queryParams);
+        // console.log(this.route.snapshot.fragment);
 
         this.getAssignmentById();
     }
@@ -41,11 +49,13 @@ export class EditAssigmentComponent implements OnInit {
         const id: number = +this.route.snapshot.params.id;
 
         console.log('Dans ngOnInit de details, id = ' + id);
-        this.assignmentsService.getAssignment(id).subscribe((assignment) => {
-            this.assignment = assignment;
-            this.nom = assignment.nom;
-            this.dateDeRendu = assignment.dateDeRendu;
-        });
+        this.assignmentSub.push(
+            this.assignmentsService.getAssignment(id).subscribe((assignment) => {
+                this.assignment = assignment;
+                this.nom = assignment.nom;
+                this.dateDeRendu = assignment.dateDeRendu;
+            })
+        );
     }
 
 
@@ -59,26 +69,26 @@ export class EditAssigmentComponent implements OnInit {
         this.assignment.dateDeRendu = this.dateDeRendu;
         const oldName = this.assignment.nom;
 
-        this.assignmentsService.updateAssignment(this.assignment)
-            .subscribe(message => {
-                    console.log(message.message);
-                    // on affiche une notification
-                    this.snackBar.open(oldName + ' a été modifié avec succès en ' + this.assignment.nom, 'OK', {
-                        duration: 2000
-                    });
-                },
-                error => {
-                    console.log(error.message);
-                    // on affiche une notification
-                    this.snackBar.open('La modification de ' + oldName + ' a échoué ', 'OK', {
-                        duration: 2000, panelClass: ['mat-error']
-                    });
-                },
-                () => {
-                    // et on navigue vers la page d'accueil
-                    this.router.navigate(['/home']);
-                }
-            );
+        this.assignmentSub.push(
+            this.assignmentsService.updateAssignment(this.assignment)
+                .subscribe(message => {
+                        console.log(message.message);
+                        // on affiche une notification
+                        this.snackBar.open(oldName + ' a été modifié avec succès en ' + this.assignment.nom, 'OK', {
+                            duration: 2000
+                        });
+                        // et on navigue vers la page d'accueil
+                        this.router.navigate(['/home']);
+                    },
+                    error => {
+                        console.log(error.message);
+                        // on affiche une notification
+                        this.snackBar.open('La modification de ' + oldName + ' a échoué ', 'OK', {
+                            duration: 2000, panelClass: ['mat-error']
+                        });
+                    }
+                )
+        );
 
     }
 }

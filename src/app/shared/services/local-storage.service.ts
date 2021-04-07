@@ -1,5 +1,5 @@
-import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
+import {Injectable} from '@angular/core';
+import {Subject} from 'rxjs';
 
 @Injectable({
     providedIn: 'root',
@@ -7,7 +7,7 @@ import { Subject } from 'rxjs';
 
 export class LocalStorageService {
     localStorage: Storage;
-    changes$ =  new Subject();
+    changes$ = new Subject();
 
     constructor() {
         this.localStorage = window.localStorage;
@@ -47,7 +47,7 @@ export class LocalStorageService {
         return false;
     }
 
-    get  isLocalStorageSupported(): boolean {
+    get isLocalStorageSupported(): boolean {
         return !!this.localStorage;
     }
 }

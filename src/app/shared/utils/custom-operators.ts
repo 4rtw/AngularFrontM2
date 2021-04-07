@@ -1,5 +1,5 @@
-import { Observable, defer } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import {defer, Observable} from 'rxjs';
+import {tap} from 'rxjs/operators';
 
 export function tapOnce<T>(fn: (value) => void) {
     return (source: Observable<any>) =>
