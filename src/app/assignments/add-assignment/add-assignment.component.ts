@@ -41,6 +41,7 @@ export class AddAssignmentComponent implements OnInit {
                     });
                 },
                 error => {
+                    console.log(error.message);
                     this.snackBar.open('L\' ajout de l\'assignment ' + nouvelAssignment.nom + ' a échoué', 'OK', {
                         duration: 2000, panelClass: ['mat-error']
                     });
