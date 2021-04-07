@@ -1,70 +1,70 @@
 <div cdkDropListGroup class="container">
-  <div class="content">
+    <div class="content">
 
-    <mat-card>
-      <mat-card-title>Assignments non rendus</mat-card-title>
-      <mat-card-content>
-        <div
-                cdkDropList
-                [cdkDropListData]="assignmentsNonRendus"
-                class="example-list"
-                (cdkDropListDropped)="drop($event)">
-          <cdk-virtual-scroll-viewport #scrollerNonRendu itemSize="50" class="example-viewport">
-            <div class="example-box" *ngFor="let item of assignmentsNonRendus" cdkDrag [cdkDragData]="item">
-              <nav>
-                <a routerLink="/assignment/{{item.id}}">
-                  <mat-list-item class="example-item">
-                    {{item.dateDeRendu | date}}
-                    <p *ngIf="item.rendu; else nonsoumis" appRendu>
-                      {{item.nom}}, rendu par l'élève.
-                    </p>
-                    <ng-template #nonsoumis>
-                      <p appNonRendu>
-                        {{item.nom}}, non rendu par l'élève.
-                      </p>
-                    </ng-template>
-                  </mat-list-item>
-                </a>
-              </nav>
-            </div>
-          </cdk-virtual-scroll-viewport>
-        </div>
-      </mat-card-content>
-    </mat-card>
-  </div>
+        <mat-card>
+            <mat-card-title>Assignments non rendus</mat-card-title>
+            <mat-card-content>
+                <div
+                        cdkDropList
+                        [cdkDropListData]="assignmentsNonRendus"
+                        class="example-list"
+                        (cdkDropListDropped)="drop($event)">
+                    <cdk-virtual-scroll-viewport #scrollerNonRendu itemSize="50" class="example-viewport">
+                        <div class="example-box" *ngFor="let item of assignmentsNonRendus" cdkDrag [cdkDragData]="item">
+                            <nav>
+                                <a routerLink="/assignment/{{item.id}}">
+                                    <mat-list-item class="example-item">
+                                        {{item.dateDeRendu | date}}
+                                        <p *ngIf="item.rendu; else nonsoumis" appRendu>
+                                            {{item.nom}}, rendu par l'élève.
+                                        </p>
+                                        <ng-template #nonsoumis>
+                                            <p appNonRendu>
+                                                {{item.nom}}, non rendu par l'élève.
+                                            </p>
+                                        </ng-template>
+                                    </mat-list-item>
+                                </a>
+                            </nav>
+                        </div>
+                    </cdk-virtual-scroll-viewport>
+                </div>
+            </mat-card-content>
+        </mat-card>
+    </div>
 
-  <div class="content">
+    <div class="content">
 
-    <mat-card>
-      <mat-card-title>Assignments Rendus</mat-card-title>
-      <mat-card-content>
-        <div
-                cdkDropList
-                [cdkDropListData]="assignmentsRendus"
-                class="example-list"
-                (cdkDropListDropped)="drop($event)">
-          <cdk-virtual-scroll-viewport #scrollerRendu itemSize="50" class="example-viewport">
-            <div class="example-box" *ngFor="let item of assignmentsRendus" cdkDrag [cdkDragData]="item">
-              <nav>
-                <a routerLink="/assignment/{{item.id}}">
-                  <mat-list-item class="example-item">
-                    {{item.dateDeRendu | date}}
-                    <p *ngIf="item.rendu; else nonsoumis" appRendu>
-                      {{item.nom}}, rendu par l'élève.
-                    </p>
-                    <ng-template #nonsoumis>
-                      <p appNonRendu>
-                        {{item.nom}}, non rendu par l'élève.
-                      </p>
-                    </ng-template>
-                  </mat-list-item>
-                </a>
-              </nav>
-            </div>
-          </cdk-virtual-scroll-viewport>
-        </div>
-      </mat-card-content>
-    </mat-card>
-  </div>
+        <mat-card>
+            <mat-card-title>Assignments Rendus</mat-card-title>
+            <mat-card-content>
+                <div
+                        cdkDropList
+                        [cdkDropListData]="assignmentsRendus"
+                        class="example-list"
+                        (cdkDropListDropped)="drop($event)">
+                    <cdk-virtual-scroll-viewport #scrollerRendu itemSize="50" class="example-viewport">
+                        <div class="example-box" *ngFor="let item of assignmentsRendus" cdkDrag [cdkDragData]="item">
+                            <nav>
+                                <a routerLink="/assignment/{{item.id}}">
+                                    <mat-list-item class="example-item">
+                                        {{item.dateDeRendu | date}}
+                                        <p *ngIf="item.rendu; else nonsoumis" appRendu>
+                                            {{item.nom}}, rendu par l'élève.
+                                        </p>
+                                        <ng-template #nonsoumis>
+                                            <p appNonRendu>
+                                                {{item.nom}}, non rendu par l'élève.
+                                            </p>
+                                        </ng-template>
+                                    </mat-list-item>
+                                </a>
+                            </nav>
+                        </div>
+                    </cdk-virtual-scroll-viewport>
+                </div>
+            </mat-card-content>
+        </mat-card>
+    </div>
 </div>
 

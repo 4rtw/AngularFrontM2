@@ -8,7 +8,7 @@ interceptor                 all http                    ok
 token impl                  token services              ok
 refresh token               token services              ok
 refactor services codes     all services
-snackbar coloration         msg succès/erreur
+snackbar coloration         msg succès/erreur           ok
 force reload                onlogin / onlogout          ok
 form validation             login                       ok
 unsub all observables       all components

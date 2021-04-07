@@ -1,16 +1,16 @@
 .form {
-  display:flex;
-  flex-direction: column;
-  margin:5px;
+    display: flex;
+    flex-direction: column;
+    margin: 5px;
 }
 
-.container{
-  display: flex;
-  flex-direction: column;
-  margin: 5px;
+.container {
+    display: flex;
+    flex-direction: column;
+    margin: 5px;
 }
 
-.content{
-  width: 600px;
-  margin: auto;
+.content {
+    width: 600px;
+    margin: auto;
 }

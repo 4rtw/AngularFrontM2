@@ -3,7 +3,7 @@
     https://stackoverflow.com/questions/51058232/how-to-design-mat-toolbar-full-width-of-the-screen/51669408
 */
 
-mat-toolbar{
+mat-toolbar {
     position: fixed;
     top: 0;
     left: 0;
@@ -11,15 +11,15 @@ mat-toolbar{
     width: 100% !important;
 }
 
-.body{
+.body {
     padding-top: 60px;
 }
 
-mat-toolbar span a:link{
+mat-toolbar span a:link {
     text-decoration: none;
 }
 
-mat-toolbar span a{
+mat-toolbar span a {
     color: white;
 }
 
@@ -31,14 +31,14 @@ mat-toolbar span a{
     display: none;
 }
 
-.sidenav{
+.sidenav {
     width: 200px !important;
 }
 
-.container{
+.container {
     width: 100%;
 }
 
-.progress-bar{
+.progress-bar {
     padding-top: 50px;
 }

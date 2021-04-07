@@ -1,28 +1,29 @@
 <div class="container">
-  <!--Toolbar-->
-<mat-toolbar color="primary">
-  <span><h1><a routerLink="/home">{{title}}</a></h1></span>
-  <span class="spacer"></span>
-  <!--Menu-->
-  <button mat-icon-button [matMenuTriggerFor]="menu">
-    <mat-icon>more_vert</mat-icon>
-  </button>
+    <!--Toolbar-->
+    <mat-toolbar color="primary">
+        <span><h1><a routerLink="/home">{{title}}</a></h1></span>
+        <span class="spacer"></span>
+        <!--Menu-->
+        <button mat-icon-button [matMenuTriggerFor]="menu">
+            <mat-icon>more_vert</mat-icon>
+        </button>
 
-  <!--Liste dans le menu-->
-  <mat-menu #menu="matMenu">
-    <button mat-menu-item (click)="popupPeuplerBD()">Peupler la BD</button>
-    <button mat-menu-item *ngIf="!isLoggedIn; else logoutButton" (click)="onConnecterClick()">Login</button>
+        <!--Liste dans le menu-->
+        <mat-menu #menu="matMenu">
+            <button mat-menu-item (click)="popupPeuplerBD()">Peupler la BD</button>
+            <button mat-menu-item *ngIf="!isLoggedIn; else logoutButton" (click)="onConnecterClick()">Login</button>
 
-    <ng-template #logoutButton><button mat-menu-item (click)="onLogoutClick()">Logout</button></ng-template>
-    <!-- <mat-slide-toggle (click)="login()">Log me!</mat-slide-toggle> -->
-  </mat-menu>
+            <ng-template #logoutButton>
+                <button mat-menu-item (click)="onLogoutClick()">Logout</button>
+            </ng-template>
+            <!-- <mat-slide-toggle (click)="login()">Log me!</mat-slide-toggle> -->
+        </mat-menu>
 
-</mat-toolbar>
+    </mat-toolbar>
 
 
-
-<!-- Indique qu'on affichera le composant qui correspond à l'URL courant -->
-  <div class="body">
-      <router-outlet></router-outlet>
-  </div>
+    <!-- Indique qu'on affichera le composant qui correspond à l'URL courant -->
+    <div class="body">
+        <router-outlet></router-outlet>
+    </div>
 </div>
