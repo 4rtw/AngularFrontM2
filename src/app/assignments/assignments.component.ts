@@ -172,6 +172,11 @@ export class AssignmentsComponent implements OnInit {
                     this.snackBar.open('Assignment ' + rendu, 'OK', {
                         duration: 2000,
                     });
+                }, error => {
+                    console.log(error.message);
+                    this.snackBar.open('Transfert de l\'assignment échoué', 'OK', {
+                        duration: 2000, panelClass: ['mat-error']
+                    });
                 }
             );
 
