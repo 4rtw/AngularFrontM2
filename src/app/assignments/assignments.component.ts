@@ -24,7 +24,6 @@ export class AssignmentsComponent implements OnInit {
     prevPage: number;
     hasNextPage: boolean;
     nextPage: number;
-    // TODO Drag and drop dans les Tabs
 
     @ViewChild('scrollerRendu') scrollerRendu: CdkVirtualScrollViewport;
     @ViewChild('scrollerNonRendu') scrollerNonRendu: CdkVirtualScrollViewport;
