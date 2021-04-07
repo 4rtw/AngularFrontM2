@@ -102,7 +102,7 @@ export class AppComponent implements OnInit, OnDestroy{
   }
 
   popupPeuplerBD(): void {
-    this.dialog.open(DialogPopupContentComponent);
+    this.dialog.open(PeuplerDBDialogComponent);
   }
   /* ------------------------------------------------------------------- */
 }
@@ -110,10 +110,10 @@ export class AppComponent implements OnInit, OnDestroy{
 
 @Component({
   selector: 'app-dialog-popup-content',
-  templateUrl: 'add-assignments-dialog-popup-content.html',
+  templateUrl: 'peuplerDB-dialog-popup-content.html',
   styleUrls: ['./app.component.css']
 })
-export class DialogPopupContentComponent{
+export class PeuplerDBDialogComponent{
   isBegin: boolean;
 
   constructor(private assignmentsService: AssignmentsService,
