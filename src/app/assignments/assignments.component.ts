@@ -176,7 +176,6 @@ export class AssignmentsComponent implements OnInit {
                     this.snackBar.open('Transfert de l\'assignment échoué', 'OK', {
                         duration: 5000, panelClass: ['mat-error']
                     });
-                    setTimeout('', 5000);
                     location.reload();
                 }
             );
