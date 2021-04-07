@@ -1,118 +1,129 @@
-import { Component, OnInit } from '@angular/core'
-import { ActivatedRoute, Router } from '@angular/router'
-import { AssignmentsService } from 'src/app/shared/services/assignments.service'
-import { AuthService } from 'src/app/shared/services/auth.service'
-import { Assignment } from '../../shared/models/assignment.model'
-import {MatSnackBar} from '@angular/material/snack-bar'
-import {MatDialog} from '@angular/material/dialog'
+import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
+import {AssignmentsService} from 'src/app/shared/services/assignments.service';
+import {AuthService} from 'src/app/shared/services/auth.service';
+import {Assignment} from '../../shared/models/assignment.model';
+import {MatSnackBar} from '@angular/material/snack-bar';
+import {MatDialog} from '@angular/material/dialog';
 
 @Component({
-  selector: 'app-assignment-detail',
-  templateUrl: './assignment-detail.component.html',
-  styleUrls: ['./assignment-detail.component.css'],
+    selector: 'app-assignment-detail',
+    templateUrl: './assignment-detail.component.html',
+    styleUrls: ['./assignment-detail.component.css'],
 })
 export class AssignmentDetailComponent implements OnInit {
-  // passé sous forme d'attribut HTML
-  assignmentTransmis: Assignment
+    // passé sous forme d'attribut HTML
+    assignmentTransmis: Assignment;
 
-  constructor(
-    private assignmentsService: AssignmentsService,
-    private route: ActivatedRoute,
-    private router: Router,
-    private authService: AuthService,
-    public dialog: MatDialog
-  ) {}
+    constructor(
+        private assignmentsService: AssignmentsService,
+        private route: ActivatedRoute,
+        private router: Router,
+        private authService: AuthService,
+        public dialog: MatDialog
+    ) {
+    }
 
-  ngOnInit(): void {
-    this.getAssignmentById()
-  }
+    ngOnInit(): void {
+        this.getAssignmentById();
+    }
 
-  getAssignmentById(): void {
-    // les params sont des string, on va forcer la conversion
-    // en number en mettant un "+" devant
-    const id: number = +this.route.snapshot.params.id
+    getAssignmentById(): void {
+        // les params sont des string, on va forcer la conversion
+        // en number en mettant un "+" devant
+        const id: number = +this.route.snapshot.params.id;
 
-    console.log('Dans ngOnInit de details, id = ' + id)
-    this.assignmentsService.getAssignment(id).subscribe((assignment) => {
-      this.assignmentTransmis = assignment
-    })
-  }
+        console.log('Dans ngOnInit de details, id = ' + id);
+        this.assignmentsService.getAssignment(id).subscribe((assignment) => {
+            this.assignmentTransmis = assignment;
+        });
+    }
 
-  onAssignmentRendu(): void {
-    this.assignmentTransmis.rendu = true
+    onAssignmentRendu(): void {
+        this.assignmentTransmis.rendu = true;
 
-    this.assignmentsService
-      .updateAssignment(this.assignmentTransmis)
-      .subscribe((reponse) => {
-        console.log(reponse.message)
-        // et on navigue vers la page d'accueil qui affiche la liste
-        this.router.navigate(['/home'])
-      })
+        this.assignmentsService
+            .updateAssignment(this.assignmentTransmis)
+            .subscribe((reponse) => {
+                console.log(reponse.message);
+                // et on navigue vers la page d'accueil qui affiche la liste
+                this.router.navigate(['/home']);
+            });
 
-    // this.assignmentTransmis = null
-  }
+        // this.assignmentTransmis = null
+    }
 
-  onClickEdit(): void {
-    this.router.navigate(['/assignment', this.assignmentTransmis.id, 'edit'], {
-      queryParams: {
-        nom: 'Michel Buffa',
-        metier: 'Professeur',
-        responsable: 'MIAGE'
-      },
-      fragment: 'edition'
-    })
-  }
+    onClickEdit(): void {
+        this.router.navigate(['/assignment', this.assignmentTransmis.id, 'edit'], {
+            /*
+            queryParams: {
+                nom: 'Michel Buffa',
+                metier: 'Professeur',
+                responsable: 'MIAGE'
+            },
+            fragment: 'edition'
+            */
+        });
+    }
 
-  popupDelete(): void{
-    const dialogRef = this.dialog.open(DeleteConfirmPopupComponent)
-  }
+    popupDelete(): void {
+        this.dialog.open(DeleteConfirmPopupComponent);
+    }
 }
 
 
 @Component({
-  selector: 'app-delete-confirm-popup-content',
-  templateUrl: './delete-confirm-popup-content.html'
+    selector: 'app-delete-confirm-popup-content',
+    templateUrl: './delete-confirm-popup-content.html'
 })
-export class DeleteConfirmPopupComponent implements OnInit{
-  assignmentTransmis: Assignment
-  constructor(
-              private assignmentsService: AssignmentsService,
-              private router: Router,
-              private route: ActivatedRoute,
-              private snackbar: MatSnackBar){}
+export class DeleteConfirmPopupComponent implements OnInit {
+    assignmentTransmis: Assignment;
 
-  ngOnInit(): void {
-    this.getAssignmentById()
-  }
+    constructor(
+        private assignmentsService: AssignmentsService,
+        private router: Router,
+        private route: ActivatedRoute,
+        private snackbar: MatSnackBar) {
+    }
 
-  getAssignmentById(): void {
-    // les params sont des string, on va forcer la conversion
-    // en number en mettant un "+" devant
-    const id = Number(this.router.url.split('/', 3)[2])
+    ngOnInit(): void {
+        this.getAssignmentById();
+    }
 
-    console.log('Dans ngOnInit de details, id = ' + id)
-    this.assignmentsService.getAssignment(id).subscribe((assignment) => {
-      this.assignmentTransmis = assignment
-    })
-  }
+    getAssignmentById(): void {
+        // les params sont des string, on va forcer la conversion
+        // en number en mettant un "+" devant
+        const id = Number(this.router.url.split('/', 3)[2]);
 
-  onDelete(): void {
-    this.assignmentsService
-        .deleteAssignment(this.assignmentTransmis)
-        .subscribe((reponse) => {
-          console.log(reponse.message)
-          const nom = this.assignmentTransmis.nom
+        console.log('Dans ngOnInit de details, id = ' + id);
+        this.assignmentsService.getAssignment(id).subscribe((assignment) => {
+            this.assignmentTransmis = assignment;
+        });
+    }
 
-          // on cache l'affichage du détail
-          this.assignmentTransmis = null
+    onDelete(): void {
+        const nom = this.assignmentTransmis.nom;
+        this.assignmentsService
+            .deleteAssignment(this.assignmentTransmis)
+            .subscribe((reponse) => {
+                    console.log(reponse.message);
 
-          // et on navigue vers la page d'accueil qui affiche la liste
-          this.router.navigate(['/home'])
+                    // on cache l'affichage du détail
+                    this.assignmentTransmis = null;
 
-          // on affiche une notification
-          this.snackbar.open(nom + ' a été supprimé avec succès', 'OK', {
-            duration: 2000,
-          })
-        })
-  }
+                    // on affiche une notification
+                    this.snackbar.open(nom + ' a été supprimé avec succès', 'OK', {
+                        duration: 2000,
+                    });
+                },
+                error => {
+                    this.snackbar.open('La suppression de l\'assignment' + nom + ' a échoué', 'OK', {
+                        duration: 2000, panelClass: ['mat-error']
+                    });
+                },
+                () => {
+                    // et on navigue vers la page d'accueil qui affiche la liste
+                    this.router.navigate(['/home']);
+                });
+    }
 }
