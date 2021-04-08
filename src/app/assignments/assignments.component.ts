@@ -1,5 +1,5 @@
 import {CdkVirtualScrollViewport} from '@angular/cdk/scrolling';
-import {Component, NgZone, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, NgZone, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {filter, map, pairwise, throttleTime} from 'rxjs/operators';
 import {AssignmentsService} from '../shared/services/assignments.service';
@@ -14,7 +14,7 @@ import {JwtService} from '../shared/services/jwt.service';
     templateUrl: './assignments.component.html',
     styleUrls: ['./assignments.component.css'],
 })
-export class AssignmentsComponent implements OnInit, OnDestroy {
+export class AssignmentsComponent implements OnInit, OnDestroy, AfterViewInit {
     assignments: Assignment[];
     assignmentsRendus: Assignment[] = [];
     assignmentsNonRendus: Assignment[] = [];
