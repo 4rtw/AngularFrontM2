@@ -64,16 +64,7 @@ export class AssignmentDetailComponent implements OnInit, OnDestroy {
     }
 
     onClickEdit(): void {
-        this.router.navigate(['/assignment', this.assignmentTransmis.id, 'edit'], {
-            /*
-            queryParams: {
-                nom: 'Michel Buffa',
-                metier: 'Professeur',
-                responsable: 'MIAGE'
-            },
-            fragment: 'edition'
-            */
-        });
+        this.router.navigate(['/assignment', this.assignmentTransmis.id, 'edit']);
     }
 
     popupDelete(): void {

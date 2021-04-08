@@ -49,7 +49,6 @@ export class AssignmentsComponent implements OnInit, OnDestroy, AfterViewInit {
             this.route.queryParams.subscribe((queryParams) => {
                 this.page = +queryParams.page || 1;
                 this.limit = +queryParams.limit || 10;
-
                 this.getAssignments();
             })
         );

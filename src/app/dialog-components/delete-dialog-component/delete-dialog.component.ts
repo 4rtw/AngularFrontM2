@@ -57,7 +57,7 @@ export class DeleteConfirmPopupComponent implements OnInit, OnDestroy {
                 },
                 error => {
                     console.log(error);
-                    this.snackbar.open('La suppression de l\'assignment' + '' + ' a échoué', 'OK', {
+                    this.snackbar.open('La suppression de l\'assignment a échoué', 'OK', {
                         duration: 2000, panelClass: ['mat-error']
                     });
                 }
