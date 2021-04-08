@@ -1,14 +1,14 @@
 .container {
-  margin: 30px;
+    margin: 30px;
 }
 
 #bottom {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
 }
 
-.content{
-  width: 600px;
-  margin: auto;
+.content {
+    width: 600px;
+    margin: auto;
 }

@@ -1,12 +1,16 @@
-<h2 mat-dialog-title>Effacer l'enregistrement</h2>
+<h2 mat-dialog-title>Peupler la Database</h2>
 <mat-dialog-content class="mat-typography">
     <h3>Ceci est un avertissement</h3>
-    <p>Cette action affacera l'enregistrement actuel, voulez-vous continuer?</p>
+    <p>Cette action ajoutera 500 nouvelles entrées dans la base de données. Voulez-vous continuer?</p>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
     <button mat-button mat-dialog-close>Cancel</button>
-    <button mat-button [mat-dialog-close]="true" (click)="onDelete()" cdkFocusInitial>Confirmer</button>
+    <button mat-raised-button color="warn" (click)="peuplerBD()" cdkFocusInitial>Confirmer</button>
 </mat-dialog-actions>
+
+<div *ngIf=isBegin class="progress-bar">
+    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+</div>
 
 
 <!-- Copyright 2020 Google LLC. All Rights Reserved.

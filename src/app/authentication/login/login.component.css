@@ -1,18 +1,18 @@
-form{
+form {
     display: flex;
     flex-direction: column;
     margin: 5px;
 }
 
-button + button{
+button + button {
     margin-top: 10px;
 }
 
-.container .content{
+.container .content {
     margin: auto;
     width: 600px;
 }
 
-.login{
+.login {
     padding: 55px;
 }

@@ -1,14 +1,14 @@
 .form {
-  display:flex;
-  flex-direction: column;
-  margin:5px;
+    display: flex;
+    flex-direction: column;
+    margin: 5px;
 }
 
-.card{
-  padding: 55px;
+.card {
+    padding: 55px;
 }
 
-.container .content{
-  width: 600px;
-  margin: auto;
+.container .content {
+    width: 600px;
+    margin: auto;
 }

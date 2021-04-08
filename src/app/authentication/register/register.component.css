@@ -1,9 +1,9 @@
-.container .content{
+.container .content {
     width: 600px;
     margin: auto;
 }
 
-mat-card{
+mat-card {
     padding: 55px;
 }
 
@@ -11,7 +11,7 @@ button + button {
     margin-top: 10px;
 }
 
-.form{
+.form {
     display: flex;
     flex-direction: column;
 }
