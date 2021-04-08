@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {AssignmentsService} from 'src/app/shared/services/assignments.service';
 import {Assignment} from '../../shared/models/assignment.model';
@@ -10,7 +10,7 @@ import {Subscription} from 'rxjs';
     templateUrl: './add-assignment.component.html',
     styleUrls: ['./add-assignment.component.css'],
 })
-export class AddAssignmentComponent implements OnInit, OnDestroy {
+export class AddAssignmentComponent implements OnInit {
     // Pour les champs du formulaire
     nom = '';
     dateDeRendu = null;
@@ -37,7 +37,7 @@ export class AddAssignmentComponent implements OnInit, OnDestroy {
         this.addAssignmentSub = this.assignmentsService.addAssignment(nouvelAssignment)
             .subscribe(reponse => {
                     console.log(reponse.message);
-                    // puis on affiche une notiffication
+                    // puis on affiche une notification
                     this.snackBar.open(nouvelAssignment.nom + ' a été ajouté avec succès', 'OK', {
                         duration: 2000,
                     });
@@ -50,10 +50,9 @@ export class AddAssignmentComponent implements OnInit, OnDestroy {
                     });
                 }
             );
-    }
 
-    ngOnDestroy(): void {
-        this.addAssignmentSub.unsubscribe();
+        setTimeout(() => {
+            this.addAssignmentSub.unsubscribe();
+        }, 5000);
     }
-
 }

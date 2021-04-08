@@ -95,7 +95,6 @@ export class AppComponent implements OnInit, OnDestroy {
         this.router.navigate(['/login']);
     }
 
-    // TODO: Boutton Ajouter
     onAjouterClick(): void {
         this.router.navigate(['/add']);
     }

@@ -11,6 +11,10 @@ mat-toolbar {
     width: 100% !important;
 }
 
+.button-grp {
+    padding-left: 15px;
+}
+
 .body {
     padding-top: 60px;
 }

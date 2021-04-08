@@ -1,8 +1,14 @@
 <div class="container">
     <!--Toolbar-->
     <mat-toolbar color="primary">
-        <span><h1><a routerLink="/home">{{title}}</a></h1></span>
-        <span class="spacer"></span>
+        <span>
+                <h1><a routerLink="/home">{{title}}</a></h1>
+        </span>
+        <span class="spacer button-grp">
+            <button (click)="onAjouterClick()" color="accent" mat-flat-button>
+                <mat-icon>add</mat-icon> Add assignment
+            </button>
+        </span>
         <!--Menu-->
         <button mat-icon-button [matMenuTriggerFor]="menu">
             <mat-icon>more_vert</mat-icon>
