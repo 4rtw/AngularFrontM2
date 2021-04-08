@@ -9,7 +9,6 @@ import {config} from './shared/configs/config';
 import {Subscription} from 'rxjs';
 import {PeuplerDBDialogComponent} from './dialog-components/peuplerDB-dialog-component/peuplerdb-dialog.component';
 import {IdleDialogComponent} from './dialog-components/idle-dialog-component/idle-dialog.component';
-import {MatSnackBar} from '@angular/material/snack-bar';
 
 export interface DialogData {
     idleTime_min: number;
@@ -35,7 +34,6 @@ export class AppComponent implements OnInit, OnDestroy {
 
     sub_timeout: Subscription;
     sub_timeStart: Subscription;
-    private snackBar: MatSnackBar;
 
     constructor(
         private userIdle: UserIdleService,
