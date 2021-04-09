@@ -9,6 +9,7 @@ import {config} from './shared/configs/config';
 import {Subscription} from 'rxjs';
 import {PeuplerDBDialogComponent} from './dialog-components/peuplerDB-dialog-component/peuplerdb-dialog.component';
 import {IdleDialogComponent} from './dialog-components/idle-dialog-component/idle-dialog.component';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 export interface DialogData {
     idleTime_min: number;
@@ -40,7 +41,8 @@ export class AppComponent implements OnInit, OnDestroy {
         private router: Router,
         private jwtService: JwtService,
         private authService: AuthService,
-        public dialog: MatDialog
+        public dialog: MatDialog,
+        private snackBar: MatSnackBar
     ) {
     }
 
@@ -103,9 +105,15 @@ export class AppComponent implements OnInit, OnDestroy {
         this.isLoggedIn = false;
 
         this.assignmentSub.push(
-            this.authService.logOut().subscribe(_ => {
-                this.router.navigate(['/']);
-                location.reload();
+            this.authService.logOut().subscribe(response => {
+                if (response.message[0] === 1) {
+                    this.router.navigate(['/']);
+                    this.snackBar.open(response.message[1], 'OK');
+                    setTimeout(() => location.reload(), 1500);
+                } else {
+                    this.snackBar.open(response.message[1], 'OK');
+                    setTimeout(() => location.reload(), 1500);
+                }
             })
         );
     }

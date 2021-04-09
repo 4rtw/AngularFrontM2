@@ -26,10 +26,13 @@ export class AuthService {
     }
 
     logIn(username: string, password: string): Observable<any> {
+        const statusMessage = [];
         return this.http.post<any>(this.uri + 'login', {utilisateur: username, motDePasse: password})
             .pipe(
                 map(x => {
-                    return {message: x.message, data: x.data[0]};
+                    statusMessage.push(x.status);
+                    statusMessage.push(x.message);
+                    return {message: statusMessage, data: x.data[0]};
                 }),
                 tap(x => {
                     const succed = this.persistenceManager.set('payload', x.data);
@@ -43,11 +46,14 @@ export class AuthService {
 
     logOut(): Observable<any> {
         const decoded = this.jwtService.decoded;
+        const statusMessage = [];
         if (decoded) {
             return this.http.post<any>(this.uri + 'logout', {utilisateur: decoded.utilisateur})
                 .pipe(
                     map(x => {
-                        return {message: x.message};
+                        statusMessage.push(x.status);
+                        statusMessage.push(x.message);
+                        return {message: statusMessage};
                     }),
                     tap(_ => {
                         const succed = this.persistenceManager.remove('payload');

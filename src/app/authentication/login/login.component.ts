@@ -2,6 +2,7 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {AuthService} from '../../shared/services/auth.service';
 import {Router} from '@angular/router';
 import {Subscription} from 'rxjs';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 
 @Component({
@@ -17,7 +18,8 @@ export class LoginComponent implements OnInit, OnDestroy {
 
     constructor(
         private authService: AuthService,
-        private router: Router
+        private router: Router,
+        private snackBar: MatSnackBar
     ) {
     }
 
@@ -37,14 +39,22 @@ export class LoginComponent implements OnInit, OnDestroy {
         this.login_sub = this.authService
             .logIn(user, pass)
             .subscribe(response => {
-                    console.log(response);
+                    console.log(response.message[0] + ' ' + response.message[1]);
+                    if (response.message[0] === 1) {
+                        this.router.navigate(['/home']);
+                        this.snackBar.open('Connexion réussie', 'OK');
+                        setTimeout(() => location.reload(), 1500);
+                    } else {
+                        this.snackBar.open('Connexion échoué', 'OK');
+                        setTimeout(() => location.reload(), 1500);
+                    }
                 },
                 error => {
-                    console.log(error);
+                    console.log(error + 'Je suis la');
                 },
                 () => {
-                    setTimeout(() => location.reload(), 1000);
-                    this.router.navigate(['/home']);
+                    // setTimeout(() => location.reload(), 1000);
+                    // this.router.navigate(['/home']);
                 }
             );
     }
