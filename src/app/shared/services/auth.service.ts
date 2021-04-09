@@ -26,10 +26,13 @@ export class AuthService {
     }
 
     logIn(username: string, password: string): Observable<any> {
+        let statusMessage = [];
         return this.http.post<any>(this.uri + 'login', {utilisateur: username, motDePasse: password})
             .pipe(
                 map(x => {
-                    return {message: x.message, data: x.data[0]};
+                    statusMessage.push(x.status);
+                    statusMessage.push(x.message);
+                    return {message: statusMessage, data: x.data[0]};
                 }),
                 tap(x => {
                     const succed = this.persistenceManager.set('payload', x.data);
