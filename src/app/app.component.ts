@@ -106,9 +106,14 @@ export class AppComponent implements OnInit, OnDestroy {
 
         this.assignmentSub.push(
             this.authService.logOut().subscribe(response => {
-                this.router.navigate(['/']);
-                this.snackBar.open(response.message[1], 'OK');
-                setTimeout(() => location.reload(), 1500);
+                if (response.message[0] === 1) {
+                    this.router.navigate(['/']);
+                    this.snackBar.open(response.message[1], 'OK');
+                    setTimeout(() => location.reload(), 1500);
+                } else {
+                    this.snackBar.open(response.message[1], 'OK');
+                    setTimeout(() => location.reload(), 1500);
+                }
             })
         );
     }
