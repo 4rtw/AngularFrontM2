@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {UsersService} from '../../shared/services/users.service';
 import {Users} from '../../shared/models/user.model';
@@ -10,7 +10,7 @@ import {Subscription} from 'rxjs';
     templateUrl: './register.component.html',
     styleUrls: ['./register.component.css']
 })
-export class RegisterComponent implements OnInit, OnDestroy {
+export class RegisterComponent implements OnInit {
     hide = true;
     nom = '';
     username = '';
@@ -51,9 +51,9 @@ export class RegisterComponent implements OnInit, OnDestroy {
                     duration: 2000, panelClass: ['mat-error']
                 });
             });
-    }
 
-    ngOnDestroy(): void {
-        this.userSub.unsubscribe();
+        setTimeout(() => {
+            this.userSub.unsubscribe();
+        }, 10000);
     }
 }
