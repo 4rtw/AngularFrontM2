@@ -1,27 +1,52 @@
 # AssignmentApp
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.2.3.
+Ce projet a été réalisés par:
 
-## Development server
+- 05 - ANDRIAMIHARIMANANA Ando Lalaina (Partie Front-end)
+- 16 - RAFANOMEZANTSOA Fanilo Nomen’Aina (Partie Back-end)
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+## Lien Heroku du projet
 
-## Code scaffolding
+- [Partie Front-end](https://angular-front-m12.herokuapp.com/)
+- [Partie Back-end](https://backend-nodejs-m2-n-a.herokuapp.com/api/)
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+### Login
 
-## Build
+`username`: admin  
+`password`: password
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+## Pour lancer l'application localement
 
-## Running unit tests
+### Prérequis
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+- [X] Node.js (LTS ou Current)
+- [X] Angular CLI
+- [X] La partie back-end du projet (Hébergé sur Héroku -> [ici](https://backend-nodejs-m2-n-a.herokuapp.com/api/), ou à
+  déployer localement)
 
-## Running end-to-end tests
+### Lancer le projet
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+- [X] Dans le fichier `package.json`, modifier la ligne `"start": "node server.js"` en `"start": "ng serve"`
+- [X] Lancer la commande `npm install` pour installés les modules nécessaires
+- [X] Lancer la commande `ng serve` pour lancer le serveur d'application
+- [X] Rendez vous sur l'adresse `http://localhost:4200`
 
-## Further help
+## Les fonctionnalités rajoutés (Côté Front-end)
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+- 05 - ANDRIAMIHARIMANANA Ando Lalaina
+- [X] Utilisation du CDK `Drag and drop` de Angular sur le changement de status de "Rendus" et "Non Rendus", qui ne se
+  déclenchera pas si l'utilisateur n'est pas authentifié
+- [X] Améliorations visuelles:
+    - `SnackBar`
+    - `Indeterminate Progress Bar` sur la population de la Database
+    - `Dialog` pour certaines confirmations/avertissements
+    - `Form field`
+    - `Menu`
+    - `Card`
+
+- [X] L'enregistrement en tant qu'utilisateur sur l'application
+
+Améliorations des parties:
+
+- Gestion du token sur la partie Front-end du `Json Web Token (JWT)` pour l'authentification
+- Connexion et déconnection automatique après `1 min 30 sec` d'inactivité
