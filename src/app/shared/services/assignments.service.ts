@@ -16,8 +16,6 @@ export class AssignmentsService {
     constructor(private http: HttpClient) {
     }
 
-    // uri = 'http://localhost:8010/api/assignments'
-
     getAssignments(): Observable<Assignment[]> {
         console.log('Dans le service de gestion des assignments...');
         // return of(this.assignments)

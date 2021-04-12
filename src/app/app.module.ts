@@ -22,7 +22,6 @@ import {DragDropModule} from '@angular/cdk/drag-drop';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
-
 import {AssignmentsComponent} from './assignments/assignments.component';
 import {RenduDirective} from './shared/rendu.directive';
 import {NonRenduDirective} from './shared/non-rendu.directive';
@@ -42,6 +41,10 @@ import {IdleDialogComponent} from './dialog-components/idle-dialog-component/idl
 import {TokenInterceptor} from './shared/interceptors/token.interceptor';
 import {UserIdleModule} from 'angular-user-idle';
 import {config} from './shared/configs/config';
+import {UsersListComponent} from './authentication/users/users-list/users-list.component';
+import {UsersDetailsComponent} from './authentication/users/users-details/users-details.component';
+import {MatTableModule} from '@angular/material/table';
+import {EditUserComponent} from './authentication/users/edit-user/edit-user.component';
 
 const routes: Routes = [
     {
@@ -77,6 +80,21 @@ const routes: Routes = [
     {
         path: 'register',
         component: RegisterComponent
+    },
+    {
+        path: 'users',
+        component: UsersListComponent,
+        canActivate: [AuthGuard]
+    },
+    {
+        path: 'users/:id',
+        component: UsersDetailsComponent,
+        canActivate: [AuthGuard]
+    },
+    {
+        path: 'users/:id/edit',
+        component: EditUserComponent,
+        canActivate: [AuthGuard]
     }
 ];
 
@@ -93,9 +111,13 @@ const routes: Routes = [
         RegisterComponent,
         PeuplerDBDialogComponent,
         IdleDialogComponent,
-        DeleteConfirmPopupComponent
+        DeleteConfirmPopupComponent,
+        UsersListComponent,
+        UsersDetailsComponent,
+        EditUserComponent
     ],
     imports: [
+        MatTableModule,
         BrowserModule,
         BrowserAnimationsModule,
         FormsModule,

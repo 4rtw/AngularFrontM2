@@ -10,6 +10,8 @@ import {Subscription} from 'rxjs';
 import {PeuplerDBDialogComponent} from './dialog-components/peuplerDB-dialog-component/peuplerdb-dialog.component';
 import {IdleDialogComponent} from './dialog-components/idle-dialog-component/idle-dialog.component';
 import {MatSnackBar} from '@angular/material/snack-bar';
+import {UsersService} from './shared/services/users.service';
+import {Users} from './shared/models/user.model';
 
 export interface DialogData {
     idleTime_min: number;
@@ -31,7 +33,10 @@ export class AppComponent implements OnInit, OnDestroy {
     title = 'Gestion des assignments';
     idleTime = config.idle;
     isLoggedIn = false;
+    isAdmin = false;
+    userID = 0;
     beforeTimeout = config.timeout;
+    user: Users;
 
     sub_timeout: Subscription;
     sub_timeStart: Subscription;
@@ -42,7 +47,8 @@ export class AppComponent implements OnInit, OnDestroy {
         private jwtService: JwtService,
         private authService: AuthService,
         public dialog: MatDialog,
-        private snackBar: MatSnackBar
+        private snackBar: MatSnackBar,
+        private userService: UsersService
     ) {
     }
 
@@ -94,7 +100,15 @@ export class AppComponent implements OnInit, OnDestroy {
 
 
     onConnecterClick(): void {
-        this.router.navigate(['/login']);
+        this.router.navigate(['/login']).then(
+            result => {
+                location.reload();
+            }
+        );
+    }
+
+    onUserClick(): void {
+        this.router.navigate(['/users']);
     }
 
     onAjouterClick(): void {

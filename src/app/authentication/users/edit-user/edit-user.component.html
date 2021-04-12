@@ -1,0 +1,51 @@
+<div class="container">
+    <div class="content">
+        <mat-card>
+            <mat-card-title>Modification de l'user</mat-card-title>
+            <mat-card-content>
+                <form #formUser (submit)="onSubmit($event); formUser.reset();" class="form" ngForm>
+                    <mat-form-field>
+                        <input [(ngModel)]="realName" matInput name="realName" placeholder="Nom reel" required>
+                    </mat-form-field>
+
+                    <mat-form-field>
+                        <input [(ngModel)]="username" matInput name="username" placeholder="Username" required>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="fill">
+                        <mat-label>Password</mat-label>
+                        <input [(ngModel)]="password" [type]="hide ? 'password' : 'text'" matInput name="password"
+                               required>
+                        <button (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide"
+                                mat-icon-button
+                                matSuffix type="button">
+                            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                        </button>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="fill">
+                        <mat-label>Confirm password</mat-label>
+                        <input [(ngModel)]="confirmPassword" [type]="hide ? 'password' : 'text'" matInput
+                               name="password"
+                               required>
+                        <button (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide"
+                                mat-icon-button
+                                matSuffix type="button">
+                            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                        </button>
+
+                    </mat-form-field>
+
+                    <mat-checkbox (change)="onChange()" [ngModel]="isAdmin" name="isAdmin">
+                        ADMIN
+                    </mat-checkbox>
+
+
+                    <button color="primary" mat-stroked-button type="submit">
+                        Modifier l'user
+                    </button>
+                </form>
+            </mat-card-content>
+        </mat-card>
+    </div>
+</div>

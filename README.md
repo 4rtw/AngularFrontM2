@@ -43,8 +43,10 @@ Ce projet a été réalisés par:
     - `Form field`
     - `Menu`
     - `Card`
+    - `Table`
 
 - [X] L'enregistrement en tant qu'utilisateur sur l'application
+- [X] Gestion des Users côté front end (CRUD)
 
 Améliorations des parties:
 

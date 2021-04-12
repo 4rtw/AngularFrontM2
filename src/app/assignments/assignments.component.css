@@ -1,20 +1,20 @@
 .container {
     display: flex;
     flex-direction: row;
+    margin: 0;
+    padding: 0;
+    width: 100%;
 }
 
 .content {
-    width: auto;
-    margin: 12px auto;
+    width: 48%;
+    margin: auto;
 }
 
-.ajouterBtn {
-    align-self: flex-end;
-}
 
 .example-viewport {
     height: 500px;
-    width: 600px;
+    width: 100%;
 }
 
 ::-webkit-scrollbar {

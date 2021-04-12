@@ -12,3 +12,7 @@ snackbar coloration         msg succès/erreur           ok
 force reload                onlogin / onlogout          ok
 form validation             login                       ok
 unsub all observables       all components              ok
+
+userList
+userByID
+isAdmin

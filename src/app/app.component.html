@@ -17,6 +17,7 @@
         <!--Liste dans le menu-->
         <mat-menu #menu="matMenu">
             <button (click)="popupPeuplerBD()" mat-menu-item>Peupler la database</button>
+            <button (click)="onUserClick()" mat-menu-item>User management</button>
             <button mat-menu-item *ngIf="!isLoggedIn; else logoutButton" (click)="onConnecterClick()">Login</button>
 
             <ng-template #logoutButton>

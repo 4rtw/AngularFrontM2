@@ -1,4 +1,15 @@
+@import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
 /* You can add global styles to this file, and also import other style files */
 
-html, body { height: 100%; }
-body { margin-left: 0px; margin-right: 20px; margin-top: 20px; font-family: Roboto, "Helvetica Neue", sans-serif; background-color: #fafafa;}
+html, body {
+    height: 100%;
+    width: 100%;
+}
+
+body {
+    margin-left: 0px;
+    margin-right: 20px;
+    margin-top: 20px;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+    background-color: #fafafa;
+}

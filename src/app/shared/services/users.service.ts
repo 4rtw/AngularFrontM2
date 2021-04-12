@@ -18,9 +18,6 @@ export class UsersService {
     ) {
     }
 
-    // uri = 'http://localhost:8010/api/users'
-    // uriForAdd = 'http://localhost:8010/api/authentifications/register'
-
     getUsersPagine(page: number, limit: number): Observable<any> {
         return this.http.get<Users>(this.uri + '?page=' + page + '&limit=' + limit);
     }
