@@ -37,19 +37,18 @@ Ce projet a été réalisés par:
 - [X] Utilisation du CDK `Drag and drop` de Angular sur le changement de status de "Rendus" et "Non Rendus", qui ne se
   déclenchera pas si l'utilisateur n'est pas authentifié
 - [X] Améliorations visuelles:
-    - `SnackBar`
-    - `Indeterminate Progress Bar` sur la population de la Database
-    - `Dialog` pour certaines confirmations/avertissements
-    - `Form field`
-    - `Menu`
-    - `Card`
-    - `Table`
-    - `Stepper` sur Register User, Add et Edit Assignment
+  - `SnackBar` pour les notifications
+  - `Indeterminate Progress Bar` sur la population de la Database
+  - `Dialog` pour certaines confirmations/avertissements
+  - `Menu` sur la barre du haut
+  - `Card` sur les containers des elements visuelles
+  - `Table` sur la liste des users
+  - `Stepper` sur Register User, Add et Edit Assignment
 
 - [X] L'enregistrement en tant qu'utilisateur sur l'application
 - [X] Gestion des Users côté front end (CRUD)
 
-Améliorations des parties:
+Améliorations des parties - Contributions secondaires:
 
-- Gestion du token sur la partie Front-end du `Json Web Token (JWT)` pour l'authentification
+- Amelioration de la gestion du token sur la partie Front-end du `Json Web Token (JWT)` pour l'authentification
 - Connexion et déconnection automatique après `1 min 30 sec` d'inactivité
