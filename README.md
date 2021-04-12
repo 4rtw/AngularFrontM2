@@ -52,3 +52,5 @@ Améliorations des parties - Contributions secondaires:
 
 - Amelioration de la gestion du token sur la partie Front-end du `Json Web Token (JWT)` pour l'authentification
 - Connexion et déconnection automatique après `1 min 30 sec` d'inactivité
+
+A completer>>>
