@@ -1,0 +1,16 @@
+<div class="container">
+    <div class="content">
+        <mat-card *ngIf="theUser">
+            <mat-card-title>{{theUser.id}} - {{theUser.nom}}</mat-card-title>
+            <mat-card-subtitle>{{theUser.utilisateur}}</mat-card-subtitle>
+            <mat-checkbox [ngModel]="theUser.estAdmin" disabled="true">ADMIN</mat-checkbox>
+
+            <div id="bottom">
+                <nav>
+                    <button (click)="onClickEdit()" color="primary" mat-stroked-button>EDIT</button>
+                </nav>
+                <button (click)="onClickDelete()" color="warn" mat-stroked-button>DELETE</button>
+            </div>
+        </mat-card>
+    </div>
+</div>

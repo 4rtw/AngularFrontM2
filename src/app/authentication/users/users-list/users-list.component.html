@@ -1,0 +1,37 @@
+<div class="container">
+    <div class="content">
+        <table [dataSource]="users" class="mat-elevation-z8" mat-table>
+
+            <!-- Note that these columns can be defined in any order.
+                  The actual rendered columns are set as a property on the row definition" -->
+
+            <!-- Name Column -->
+            <ng-container matColumnDef="nom">
+                <th *matHeaderCellDef mat-header-cell> Real Name</th>
+                <td *matCellDef="let element" mat-cell> {{element.nom}} </td>
+            </ng-container>
+
+            <!-- Weight Column -->
+            <ng-container matColumnDef="utilisateur">
+                <th *matHeaderCellDef mat-header-cell> Username</th>
+                <td *matCellDef="let element" mat-cell> {{element.utilisateur}} </td>
+            </ng-container>
+
+            <!-- Symbol Column -->
+            <ng-container matColumnDef="estAdmin">
+                <th *matHeaderCellDef mat-header-cell> Admin</th>
+                <td *matCellDef="let element" mat-cell>
+                    <mat-checkbox [checked]="element.estAdmin" disabled="true"></mat-checkbox>
+                </td>
+            </ng-container>
+
+            <tr *matHeaderRowDef="displayedColumns; sticky: true" mat-header-row></tr>
+            <tr (click)="getRecord(row)" *matRowDef="let row; columns: displayedColumns;" mat-row></tr>
+        </table>
+    </div>
+</div>
+
+
+<!-- Copyright 2020 Google LLC. All Rights Reserved.
+    Use of this source code is governed by an MIT-style license that
+    can be found in the LICENSE file at http://angular.io/license -->
