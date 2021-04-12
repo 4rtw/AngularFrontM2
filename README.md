@@ -44,6 +44,7 @@ Ce projet a été réalisés par:
     - `Menu`
     - `Card`
     - `Table`
+    - `Stepper` sur Register User, Add et Edit Assignment
 
 - [X] L'enregistrement en tant qu'utilisateur sur l'application
 - [X] Gestion des Users côté front end (CRUD)

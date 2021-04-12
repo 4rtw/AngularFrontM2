@@ -4,6 +4,7 @@ import {AssignmentsService} from 'src/app/shared/services/assignments.service';
 import {Assignment} from '../../shared/models/assignment.model';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {Subscription} from 'rxjs';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 
 @Component({
     selector: 'app-add-assignment',
@@ -15,13 +16,25 @@ export class AddAssignmentComponent implements OnInit {
     nom = '';
     dateDeRendu = null;
     addAssignmentSub: Subscription;
+    isLinear = true;
+
+    firstFormGroup: FormGroup;
+    secondFormGroup: FormGroup;
 
     constructor(private assignmentsService: AssignmentsService,
                 private router: Router,
-                private snackBar: MatSnackBar) {
+                private snackBar: MatSnackBar,
+                private _formBuilder: FormBuilder
+    ) {
     }
 
     ngOnInit(): void {
+        this.firstFormGroup = this._formBuilder.group({
+            firstCtrl: ['', Validators.required]
+        });
+        this.secondFormGroup = this._formBuilder.group({
+            secondCtrl: ['', Validators.required]
+        });
     }
 
     onSubmit(event): void {

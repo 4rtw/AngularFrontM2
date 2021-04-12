@@ -4,6 +4,7 @@ import {UsersService} from '../../shared/services/users.service';
 import {Users} from '../../shared/models/user.model';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {Subscription} from 'rxjs';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 
 @Component({
     selector: 'app-register',
@@ -16,15 +17,26 @@ export class RegisterComponent implements OnInit {
     username = '';
     password = '';
     userSub: Subscription;
+    isLinear = true;
+
+    firstFormGroup: FormGroup;
+    secondFormGroup: FormGroup;
 
     constructor(
         private router: Router,
         private usersService: UsersService,
-        private snackBar: MatSnackBar
+        private snackBar: MatSnackBar,
+        private _formBuilder: FormBuilder
     ) {
     }
 
     ngOnInit(): void {
+        this.firstFormGroup = this._formBuilder.group({
+            firstCtrl: ['', Validators.required]
+        });
+        this.secondFormGroup = this._formBuilder.group({
+            secondCtrl: ['', Validators.required]
+        });
     }
 
     onSubmit(event): void {

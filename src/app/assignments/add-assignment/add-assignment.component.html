@@ -1,27 +1,43 @@
 <div class="container">
     <div class="content">
         <mat-card class="card">
-
             <mat-card-title class="cardTitle">Add assignment</mat-card-title>
             <mat-card-content>
-                <form ngForm #formAssignment class="form" (submit)="onSubmit($event); formAssignment.reset();">
-                    <mat-form-field>
-                        <input matInput placeholder="Nom du devoir" required [(ngModel)]="nom" name="nom">
-                    </mat-form-field>
 
-                    <mat-form-field appearance="fill">
-                        <mat-label>Choisissez une date</mat-label>
-                        <input matInput [matDatepicker]="picker" required [(ngModel)]="dateDeRendu" name="date">
+                <mat-vertical-stepper #stepper [linear]="isLinear">
+                    <mat-step [stepControl]="firstFormGroup">
+                        <form [formGroup]="firstFormGroup">
+                            <ng-template matStepLabel>Entrez le nom de l'assignment</ng-template>
+                            <div class="mat-action-row">
+                                <mat-form-field class="maxed">
+                                    <input [(ngModel)]="nom" formControlName="firstCtrl" matInput name="nom"
+                                           placeholder="Nom du devoir" required>
+                                </mat-form-field>
+                            </div>
+                        </form>
+                    </mat-step>
+                    <mat-step [stepControl]="secondFormGroup" label="La date de rendu">
+                        <form [formGroup]="secondFormGroup">
+                            <ng-template matStepLabel>La date de rendu</ng-template>
+                            <div class="mat-action-row">
+                                <mat-form-field appearance="fill" class="maxed">
+                                    <mat-label>Choisissez une date</mat-label>
+                                    <input [(ngModel)]="dateDeRendu" [matDatepicker]="picker"
+                                           formControlName="secondCtrl" matInput name="date" required>
 
-                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                    <mat-datepicker-toggle [for]="picker" matSuffix></mat-datepicker-toggle>
 
-                        <mat-datepicker #picker></mat-datepicker>
-                    </mat-form-field>
-
-                    <button mat-stroked-button color="primary">
-                        Ajouter un devoir
-                    </button>
-                </form>
+                                    <mat-datepicker #picker></mat-datepicker>
+                                </mat-form-field>
+                            </div>
+                            <div>
+                                <button mat-button matStepperPrevious>Back</button>
+                                <button (click)="onSubmit($event)" (submit)="onSubmit($event)" mat-button>Submit
+                                </button>
+                            </div>
+                        </form>
+                    </mat-step>
+                </mat-vertical-stepper>
             </mat-card-content>
         </mat-card>
     </div>

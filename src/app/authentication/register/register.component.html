@@ -1,42 +1,57 @@
 <div class="container">
     <div class="content">
         <mat-card class="login">
-
             <mat-card-title class="cardTitle">Register</mat-card-title>
             <mat-card-content>
-                <form ngForm #formUser class="form" (submit)=" onSubmit($event); formUser.reset();">
-                    <mat-form-field appearance="fill">
-                        <mat-label>Real Name</mat-label>
-                        <input matInput placeholder="Votre nom" required [(ngModel)]="nom" name="nom">
-                    </mat-form-field>
 
-                    <mat-form-field appearance="fill">
-                        <mat-label>Username</mat-label>
-                        <input matInput placeholder="Votre nom d'utilisateur" required [(ngModel)]="username"
-                               name="utilisateur">
-                    </mat-form-field>
+                <mat-vertical-stepper #stepper [linear]="isLinear">
+                    <mat-step [stepControl]="firstFormGroup">
+                        <form [formGroup]="firstFormGroup">
+                            <ng-template matStepLabel>Votre nom</ng-template>
 
-                    <mat-form-field appearance="fill">
-                        <mat-label>Password</mat-label>
-                        <input matInput [type]="hide ? 'password' : 'text'" placeholder="Votre mot de passe" required
-                               [(ngModel)]="password" name="password">
-                        <button mat-icon-button matSuffix type="button" (click)="hide = !hide"
-                                [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
-                            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-                        </button>
-                    </mat-form-field>
+                            <div class="mat-action-row">
+                                <mat-form-field appearance="fill" class="maxed">
+                                    <mat-label>Real Name</mat-label>
+                                    <input [(ngModel)]="nom" formControlName="firstCtrl" matInput name="nom"
+                                           placeholder="Votre nom"
+                                           required>
+                                </mat-form-field>
+                            </div>
 
-                    <!--mat-form-field appearance="fill">
-                        <mat-label>Confirm your password</mat-label>
-                        <input matInput [type]="hide ? 'passwordConfirm' : 'text'">
-                        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
-                            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-                        </button>
-                    </mat-form-field-->
-                    <button mat-stroked-button color="primary">
-                        Register
-                    </button>
-                </form>
+                            <div class="mat-action-row">
+                                <mat-form-field appearance="fill" class="maxed">
+                                    <mat-label>Username</mat-label>
+                                    <input [(ngModel)]="username" formControlName="firstCtrl" matInput
+                                           name="utilisateur" placeholder="Votre nom d'utilisateur"
+                                           required>
+                                </mat-form-field>
+                            </div>
+                        </form>
+                    </mat-step>
+                    <mat-step [stepControl]="secondFormGroup" label="Votre mot de passe">
+                        <form [formGroup]="secondFormGroup">
+                            <div class="mat-action-row">
+                                <mat-form-field appearance="fill" class="maxed">
+                                    <mat-label>Password</mat-label>
+                                    <input [(ngModel)]="password" [type]="hide ? 'password' : 'text'"
+                                           formControlName="secondCtrl"
+                                           matInput name="password"
+                                           placeholder="Votre mot de passe" required>
+                                    <button (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+                                            [attr.aria-pressed]="hide" mat-icon-button
+                                            matSuffix type="button">
+                                        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                                    </button>
+                                </mat-form-field>
+                            </div>
+                            <div>
+                                <button mat-button matStepperPrevious>Back</button>
+                                <button (click)="onSubmit($event)" (submit)="onSubmit($event)" mat-button>Submit
+                                </button>
+                            </div>
+                        </form>
+                    </mat-step>
+                </mat-vertical-stepper>
             </mat-card-content>
         </mat-card>
     </div>

@@ -4,6 +4,7 @@ import {AssignmentsService} from 'src/app/shared/services/assignments.service';
 import {Assignment} from '../../shared/models/assignment.model';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {Subscription} from 'rxjs';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 
 @Component({
     selector: 'app-edit-assigment',
@@ -17,12 +18,17 @@ export class EditAssigmentComponent implements OnInit, OnDestroy {
     // pour le formulaire
     nom = '';
     dateDeRendu = null;
+    isLinear = true;
+
+    firstFormGroup: FormGroup;
+    secondFormGroup: FormGroup;
 
     constructor(
         private assignmentsService: AssignmentsService,
         private route: ActivatedRoute,
         private router: Router,
-        private snackBar: MatSnackBar
+        private snackBar: MatSnackBar,
+        private _formBuilder: FormBuilder
     ) {
     }
 
@@ -33,6 +39,12 @@ export class EditAssigmentComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit(): void {
+        this.firstFormGroup = this._formBuilder.group({
+            firstCtrl: ['', Validators.required]
+        });
+        this.secondFormGroup = this._formBuilder.group({
+            secondCtrl: ['', Validators.required]
+        });
         // ici on montre comment on peut récupérer les parametres http
         // par ex de :
         // http://localhost:4200/assignment/1/edit?nom=Michel%20Buffa&metier=Professeur&responsable=MIAGE#edition
