@@ -23,8 +23,6 @@ import {MatDialogModule} from '@angular/material/dialog';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
 import {AssignmentsComponent} from './assignments/assignments.component';
-import {RenduDirective} from './shared/rendu.directive';
-import {NonRenduDirective} from './shared/non-rendu.directive';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {AssignmentDetailComponent} from './assignments/assignment-detail/assignment-detail.component';
 import {AddAssignmentComponent} from './assignments/add-assignment/add-assignment.component';
@@ -46,6 +44,7 @@ import {UsersDetailsComponent} from './authentication/users/users-details/users-
 import {MatTableModule} from '@angular/material/table';
 import {EditUserComponent} from './authentication/users/edit-user/edit-user.component';
 import {MatStepperModule} from '@angular/material/stepper';
+import {MatExpansionModule} from '@angular/material/expansion';
 
 const routes: Routes = [
     {
@@ -103,8 +102,6 @@ const routes: Routes = [
     declarations: [
         AppComponent,
         AssignmentsComponent,
-        RenduDirective,
-        NonRenduDirective,
         AssignmentDetailComponent,
         AddAssignmentComponent,
         EditAssigmentComponent,
@@ -135,7 +132,7 @@ const routes: Routes = [
         MatSnackBarModule,
         MatProgressBarModule,
         RouterModule.forRoot(routes), HttpClientModule, ScrollingModule,
-        UserIdleModule.forRoot({idle: config.idle, timeout: config.timeout, ping: config.ping}), ReactiveFormsModule
+        UserIdleModule.forRoot({idle: config.idle, timeout: config.timeout, ping: config.ping}), ReactiveFormsModule, MatExpansionModule
     ],
     providers: [{
         provide: HTTP_INTERCEPTORS,

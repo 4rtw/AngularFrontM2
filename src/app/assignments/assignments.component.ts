@@ -15,6 +15,13 @@ import {JwtService} from '../shared/services/jwt.service';
     styleUrls: ['./assignments.component.css'],
 })
 export class AssignmentsComponent implements OnInit, OnDestroy, AfterViewInit {
+
+    /*
+    * Appelé automatiquement après l'affichage, donc l'élément scroller aura
+    *  et affiché et ne vaudra pas "undefined" (ce qui aurait été le cas dans ngOnInit)
+    * On va s'abonner aux évenements de scroll sur le scrolling...
+    */
+    panelOpenState: boolean = false;
     assignments: Assignment[];
     assignmentsRendus: Assignment[] = [];
     assignmentsNonRendus: Assignment[] = [];
@@ -48,7 +55,7 @@ export class AssignmentsComponent implements OnInit, OnDestroy, AfterViewInit {
         this.assignmentSub.push(
             this.route.queryParams.subscribe((queryParams) => {
                 this.page = +queryParams.page || 1;
-                this.limit = +queryParams.limit || 10;
+                this.limit = +queryParams.limit || 60;
                 this.getAssignments();
             })
         );
@@ -139,12 +146,6 @@ export class AssignmentsComponent implements OnInit, OnDestroy, AfterViewInit {
                 )
         );
     }
-
-    /*
-    * Appelé automatiquement après l'affichage, donc l'élément scroller aura
-    *  et affiché et ne vaudra pas "undefined" (ce qui aurait été le cas dans ngOnInit)
-    * On va s'abonner aux évenements de scroll sur le scrolling...
-    */
     ngAfterViewInit(): void {
         this.onScrollList(this.scrollerRendu);
         this.onScrollList(this.scrollerNonRendu);

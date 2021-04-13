@@ -44,6 +44,7 @@ Ce projet a été réalisés par:
   - `Card` sur les containers des elements visuelles
   - `Table` sur la liste des users
   - `Stepper` sur Register User, Add et Edit Assignment
+  - `Expansion Panel` sur l'affichage des assignments
 
 - [X] L'enregistrement en tant qu'utilisateur sur l'application
 - [X] Gestion des Users côté front end (CRUD)
