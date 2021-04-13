@@ -10,7 +10,7 @@
                         [cdkDropListData]="assignmentsNonRendus"
                         class="example-list"
                         (cdkDropListDropped)="drop($event)">
-                    <cdk-virtual-scroll-viewport #scrollerNonRendu itemSize="50" class="example-viewport">
+                    <cdk-virtual-scroll-viewport #scrollerNonRendu class="example-viewport" itemSize="60">
                         <div class="example-box" *ngFor="let item of assignmentsNonRendus" cdkDrag [cdkDragData]="item">
 
                             <mat-accordion>
@@ -23,19 +23,32 @@
                                             {{item.dateDeRendu | date}}
                                         </mat-panel-description>
                                     </mat-expansion-panel-header>
-                                    <div class="container">
-                                        <div class="content">
+                                    <mat-list>
+                                        <mat-divider></mat-divider>
+                                        <mat-list-item>
+                                            {{item.nom}}
+                                        </mat-list-item>
+                                        <mat-divider></mat-divider>
+                                        <mat-list-item>
+                                            {{item.dateDeRendu | date}}
+                                        </mat-list-item>
+                                        <mat-divider></mat-divider>
+                                        <mat-list-item>
                                             <mat-checkbox [checked]="item.rendu" disabled="true">
                                                 Rendu
                                             </mat-checkbox>
-                                        </div>
-                                        <div class="content">
-                                            <button aria-label="View details" color="primary" mat-mini-fab
-                                                    routerLink="/assignment/{{item.id}}">
-                                                <mat-icon>edit</mat-icon>
-                                            </button>
-                                        </div>
-                                    </div>
+                                        </mat-list-item>
+                                        <mat-divider></mat-divider>
+                                        <mat-list-item>
+                                            <div>
+                                                <button aria-label="View details" color="primary" mat-raised-button
+                                                        routerLink="/assignment/{{item.id}}">
+                                                    <mat-icon>edit</mat-icon>
+                                                    Voir en detail
+                                                </button>
+                                            </div>
+                                        </mat-list-item>
+                                    </mat-list>
                                 </mat-expansion-panel>
                             </mat-accordion>
 
@@ -57,7 +70,7 @@
                         [cdkDropListData]="assignmentsRendus"
                         class="example-list"
                         (cdkDropListDropped)="drop($event)">
-                    <cdk-virtual-scroll-viewport #scrollerRendu itemSize="50" class="example-viewport">
+                    <cdk-virtual-scroll-viewport #scrollerRendu class="example-viewport" itemSize="60">
                         <div class="example-box" *ngFor="let item of assignmentsRendus" cdkDrag [cdkDragData]="item">
 
                             <mat-accordion>
@@ -70,19 +83,32 @@
                                             {{item.dateDeRendu | date}}
                                         </mat-panel-description>
                                     </mat-expansion-panel-header>
-                                    <div class="container">
-                                        <div class="content">
+                                    <mat-list>
+                                        <mat-divider></mat-divider>
+                                        <mat-list-item>
+                                            {{item.nom}}
+                                        </mat-list-item>
+                                        <mat-divider></mat-divider>
+                                        <mat-list-item>
+                                            {{item.dateDeRendu | date}}
+                                        </mat-list-item>
+                                        <mat-divider></mat-divider>
+                                        <mat-list-item>
                                             <mat-checkbox [checked]="item.rendu" disabled="true">
                                                 Rendu
                                             </mat-checkbox>
-                                        </div>
-                                        <div class="content">
-                                            <button aria-label="View details" color="primary" mat-mini-fab
-                                                    routerLink="/assignment/{{item.id}}">
-                                                <mat-icon>edit</mat-icon>
-                                            </button>
-                                        </div>
-                                    </div>
+                                        </mat-list-item>
+                                        <mat-divider></mat-divider>
+                                        <mat-list-item>
+                                            <div>
+                                                <button aria-label="View details" color="primary" mat-raised-button
+                                                        routerLink="/assignment/{{item.id}}">
+                                                    <mat-icon>edit</mat-icon>
+                                                    Voir en detail
+                                                </button>
+                                            </div>
+                                        </mat-list-item>
+                                    </mat-list>
                                 </mat-expansion-panel>
                             </mat-accordion>
 

@@ -81,7 +81,7 @@ export class AssignmentsComponent implements OnInit, OnDestroy, AfterViewInit {
 
                     this.assignmentsNonRendus = this.assignments.filter(item => item.rendu === false);
                     this.assignmentsRendus = this.assignments.filter(item => item.rendu === true);
-                    this.checkIfEnoughtItems();
+                    // this.checkIfEnoughtItems();
                 })
         );
     }
@@ -119,11 +119,7 @@ export class AssignmentsComponent implements OnInit, OnDestroy, AfterViewInit {
         });
     }
 
-    checkIfEnoughtItems(): void {
-        if (this.assignmentsNonRendus.length <= 11 || this.assignmentsRendus.length <= 11) {
-            this.getNextData();
-        }
-    }
+
 
     onScrollList(scroller: CdkVirtualScrollViewport): void {
         this.assignmentSub.push(
@@ -183,7 +179,7 @@ export class AssignmentsComponent implements OnInit, OnDestroy, AfterViewInit {
             //    Pour l'assignment dans la liste locale
             event.item.data.rendu = !event.item.data.rendu;
 
-            this.checkIfEnoughtItems();
+            // this.checkIfEnoughtItems();
 
             this.assignmentSub.push(
                 this.assignmentsService.updateAssignment(theAssignment).subscribe(
