@@ -51,4 +51,4 @@ Ce projet a été réalisés par:
 ## Les fonctionnalités rajoutés (Côté Front-end)
 
 - [X] Authentification avec JWT
-- [X] (Collection POSTMAN)[./src/app/shared/postman/M2-nodejs-backend-cloud.postman_collection.json] pour tester l'API
+- [X] (Collection POSTMAN)[src/app/shared/postman/M2-nodejs-backend-cloud.postman_collection.json] pour tester l'API
