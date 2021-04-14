@@ -147,18 +147,6 @@ export class AssignmentsComponent implements OnInit, OnDestroy, AfterViewInit {
         this.onScrollList(this.scrollerNonRendu);
     }
 
-    onDeleteAssignment(event): void {
-        // event = l'assignment à supprimer
-
-        // this.assignments.splice(index, 1)
-        this.assignmentSub.push(
-            this.assignmentsService.deleteAssignment(event)
-                .subscribe((message) => {
-                    console.log(message);
-                })
-        );
-    }
-
     drop(event: CdkDragDrop<Assignment[]>): void {
         if (event.previousContainer === event.container) {
             moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
@@ -178,8 +166,6 @@ export class AssignmentsComponent implements OnInit, OnDestroy, AfterViewInit {
             theAssignment.rendu = !event.item.data.rendu;
             //    Pour l'assignment dans la liste locale
             event.item.data.rendu = !event.item.data.rendu;
-
-            // this.checkIfEnoughtItems();
 
             this.assignmentSub.push(
                 this.assignmentsService.updateAssignment(theAssignment).subscribe(

@@ -48,7 +48,20 @@ Ce projet a été réalisés par:
 - [X] Gestion des Users côté front end (CRUD)
 - [X] Connexion et déconnection automatique après `1 min 30 sec` d'inactivité
 
+### Sources
+
+- Les composants angular material => [Ici](https://material.angular.io/components/categories)
+- Drag and Drop => [Ici](https://material.angular.io/cdk/drag-drop)
+  et [Ici](https://stackoverflow.com/questions/58206928/how-can-i-get-dragged-item-data-in-metarial-drag-and-drop)
+- Se desincrire d'un observable
+  => [Ici](https://blog.bitsrc.io/6-ways-to-unsubscribe-from-observables-in-angular-ab912819a78f)
+
 ## Les fonctionnalités rajoutés (Côté Front-end)
 
 - [X] Authentification avec JWT
 - [X] [Collection POSTMAN](src/app/shared/postman/M2-nodejs-backend-cloud.postman_collection.json) pour tester l'API
+
+### Sources
+
+- Reload sur les changements d'etas
+  => [Ici](https://stackoverflow.com/questions/45607077/how-to-refresh-page-in-angular-2)
