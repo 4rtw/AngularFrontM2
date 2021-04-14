@@ -56,7 +56,7 @@ Ce projet a été réalisés par:
 - Se desincrire d'un observable
   => [Ici](https://blog.bitsrc.io/6-ways-to-unsubscribe-from-observables-in-angular-ab912819a78f)
 
-## Les fonctionnalités rajoutés (Côté Front-end)
+## Les fonctionnalités rajoutés (Côté Back-end)
 
 - [X] Authentification avec JWT
 - [X] [Collection POSTMAN](src/app/shared/postman/M2-nodejs-backend-cloud.postman_collection.json) pour tester l'API
