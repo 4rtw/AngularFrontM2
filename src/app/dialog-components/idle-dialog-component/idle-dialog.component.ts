@@ -5,6 +5,7 @@ import {Router} from '@angular/router';
 import {AuthService} from '../../shared/services/auth.service';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {DialogData} from '../../app.component';
+import {MatSnackBar, MatSnackBarConfig} from '@angular/material/snack-bar';
 
 @Component({
     selector: 'app-idle-dialog-content',
@@ -16,6 +17,7 @@ export class IdleDialogComponent implements OnDestroy {
     sub_loggout: Subscription;
 
     constructor(
+        private snackBar: MatSnackBar,
         private userIdle: UserIdleService,
         private router: Router,
         private authService: AuthService,
@@ -26,7 +28,6 @@ export class IdleDialogComponent implements OnDestroy {
 
     ngOnDestroy(): void {
         this.sub_loggout?.unsubscribe();
-        location.reload();
     }
 
     onNoClick(): void {
@@ -34,6 +35,16 @@ export class IdleDialogComponent implements OnDestroy {
             this.dialogRef.close();
             this.userIdle.stopTimer();
             this.userIdle.stopWatching();
+
+            const config = new MatSnackBarConfig();
+            config.duration = 1000;
+            this.snackBar.open('Deconnecté', 'OK', config).afterDismissed().subscribe(
+                () => {
+                    setTimeout(() => {
+                        location.reload();
+                    }, 300);
+                }
+            );
             this.router.navigate(['/login']).then(() => location.reload());
         });
     }

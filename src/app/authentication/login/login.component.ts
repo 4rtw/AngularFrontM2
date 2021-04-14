@@ -2,7 +2,7 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {AuthService} from '../../shared/services/auth.service';
 import {Router} from '@angular/router';
 import {Subscription} from 'rxjs';
-import {MatSnackBar} from '@angular/material/snack-bar';
+import {MatSnackBar, MatSnackBarConfig} from '@angular/material/snack-bar';
 
 
 @Component({
@@ -42,19 +42,27 @@ export class LoginComponent implements OnInit, OnDestroy {
                     console.log(response.message[0] + ' ' + response.message[1]);
                     if (response.message[0] === 1) {
                         this.router.navigate(['/home']);
-                        this.snackBar.open('Connexion réussie', 'OK');
-                        setTimeout(() => location.reload(), 1500);
+                        let config = new MatSnackBarConfig();
+                        config.duration = 1000;
+                        this.snackBar.open('Connexion réussie', 'OK', config).afterOpened().subscribe(
+                            () => {
+                                location.reload();
+                            }
+                        );
                     } else {
-                        this.snackBar.open('Connexion échoué', 'OK');
-                        setTimeout(() => location.reload(), 1500);
+                        let config = new MatSnackBarConfig();
+                        config.duration = 1000;
+                        this.snackBar.open('Connexion échoué', 'OK', config).afterOpened().subscribe(
+                            () => {
+                                location.reload();
+                            }
+                        );
                     }
                 },
                 error => {
-                    console.log(error + 'Je suis la');
+                    console.log(error);
                 },
                 () => {
-                    // setTimeout(() => location.reload(), 1000);
-                    // this.router.navigate(['/home']);
                 }
             );
     }
