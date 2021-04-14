@@ -65,3 +65,5 @@ Ce projet a été réalisés par:
 
 - Reload sur les changements d'etats
   => [Ici](https://stackoverflow.com/questions/45607077/how-to-refresh-page-in-angular-2)
+
+(A completer)
