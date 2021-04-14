@@ -1,0 +1,415 @@
+{
+  "info": {
+    "_postman_id": "f50aceb8-d9b6-48fc-bc10-bca8716639bd",
+    "name": "M2-nodejs-backend-cloud",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Authentifications",
+      "item": [
+        {
+          "name": "logout",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://backend-nodejs-m2-n-a.herokuapp.com/api/authentifications/logout",
+              "protocol": "https",
+              "host": [
+                "backend-nodejs-m2-n-a",
+                "herokuapp",
+                "com"
+              ],
+              "path": [
+                "api",
+                "authentifications",
+                "logout"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "login",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "name": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n\t\"utilisateur\":\"bemakely\",\n\t\"motDePasse\":\"katsaka_2\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://backend-nodejs-m2-n-a.herokuapp.com/api/authentifications/login",
+              "protocol": "https",
+              "host": [
+                "backend-nodejs-m2-n-a",
+                "herokuapp",
+                "com"
+              ],
+              "path": [
+                "api",
+                "authentifications",
+                "login"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "register",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "name": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"id\": 1,\n    \"nom\": \"Rabema\",\n    \"utilisateur\": \"bemakely\",\n    \"motDePasse\": \"mangahazo\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://backend-nodejs-m2-n-a.herokuapp.com/api/authentifications/register",
+              "protocol": "https",
+              "host": [
+                "backend-nodejs-m2-n-a",
+                "herokuapp",
+                "com"
+              ],
+              "path": [
+                "api",
+                "authentifications",
+                "register"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "checktoken",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "x-access-token",
+                "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjE1NTc5NzQ4LCJleHAiOjE2MTU1Nzk3Njh9.mS1H5S3uPjkHow9wAuJPcCu3sy0cwqiQWWl142cjg4k",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "https://backend-nodejs-m2-n-a.herokuapp.com/api/authentifications/checktoken",
+              "protocol": "https",
+              "host": [
+                "backend-nodejs-m2-n-a",
+                "herokuapp",
+                "com"
+              ],
+              "path": [
+                "api",
+                "authentifications",
+                "checktoken"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Assignments",
+      "item": [
+        {
+          "name": "get all assignments",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://backend-nodejs-m2-n-a.herokuapp.com/api/assignments",
+              "protocol": "https",
+              "host": [
+                "backend-nodejs-m2-n-a",
+                "herokuapp",
+                "com"
+              ],
+              "path": [
+                "api",
+                "assignments"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "get one assignment",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://backend-nodejs-m2-n-a.herokuapp.com/api/assignments/97823",
+              "protocol": "https",
+              "host": [
+                "backend-nodejs-m2-n-a",
+                "herokuapp",
+                "com"
+              ],
+              "path": [
+                "api",
+                "assignments",
+                "97823"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "create assignment",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"id\": 97823,\r\n    \"nom\": \"PLAYSATION 5\",\r\n    \"dateDeRendu\": \"2021-06-03T21:00:00.000Z\",\r\n    \"rendu\": true\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://backend-nodejs-m2-n-a.herokuapp.com/api/assignments",
+              "protocol": "https",
+              "host": [
+                "backend-nodejs-m2-n-a",
+                "herokuapp",
+                "com"
+              ],
+              "path": [
+                "api",
+                "assignments"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "update assignment",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"id\": 97823,\r\n    \"nom\": \"XBOX ONE\",\r\n    \"dateDeRendu\": \"2021-06-03T21:00:00.000Z\",\r\n    \"rendu\": true\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://backend-nodejs-m2-n-a.herokuapp.com/api/assignments/",
+              "protocol": "https",
+              "host": [
+                "backend-nodejs-m2-n-a",
+                "herokuapp",
+                "com"
+              ],
+              "path": [
+                "api",
+                "assignments",
+                ""
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "delete assignment",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "https://backend-nodejs-m2-n-a.herokuapp.com/api/assignments/97823",
+              "protocol": "https",
+              "host": [
+                "backend-nodejs-m2-n-a",
+                "herokuapp",
+                "com"
+              ],
+              "path": [
+                "api",
+                "assignments",
+                "97823"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Users",
+      "item": [
+        {
+          "name": "create user",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "name": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"id\": 2,\n    \"nom\": \"Rabema\",\n    \"utilisateur\": \"bemakely\",\n    \"motDePasse\": \"voamanga\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://backend-nodejs-m2-n-a.herokuapp.com/api/users",
+              "protocol": "https",
+              "host": [
+                "backend-nodejs-m2-n-a",
+                "herokuapp",
+                "com"
+              ],
+              "path": [
+                "api",
+                "users"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "get one user",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://backend-nodejs-m2-n-a.herokuapp.com/api/users/4",
+              "protocol": "https",
+              "host": [
+                "backend-nodejs-m2-n-a",
+                "herokuapp",
+                "com"
+              ],
+              "path": [
+                "api",
+                "users",
+                "4"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "get all users",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://backend-nodejs-m2-n-a.herokuapp.com/api/users",
+              "protocol": "https",
+              "host": [
+                "backend-nodejs-m2-n-a",
+                "herokuapp",
+                "com"
+              ],
+              "path": [
+                "api",
+                "users"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "update user",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "name": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n   \"id\": 1,\n    \"nom\": \"Rabema\",\n    \"utilisateur\": \"bemaloha\",\n    \"motDePasse\": \"katsaka_2\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://backend-nodejs-m2-n-a.herokuapp.com/api/users",
+              "protocol": "https",
+              "host": [
+                "backend-nodejs-m2-n-a",
+                "herokuapp",
+                "com"
+              ],
+              "path": [
+                "api",
+                "users"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "delete user",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "https://backend-nodejs-m2-n-a.herokuapp.com/api/users/1",
+              "protocol": "https",
+              "host": [
+                "backend-nodejs-m2-n-a",
+                "herokuapp",
+                "com"
+              ],
+              "path": [
+                "api",
+                "users",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}

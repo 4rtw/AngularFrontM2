@@ -2,8 +2,8 @@
 
 Ce projet a été réalisés par:
 
-- 05 - ANDRIAMIHARIMANANA Ando Lalaina (Partie Front-end)
-- 16 - RAFANOMEZANTSOA Fanilo Nomen’Aina (Partie Back-end)
+- 05 - ANDRIAMIHARIMANANA Ando Lalaina
+- 16 - RAFANOMEZANTSOA Fanilo Nomen’Aina
 
 ## Lien Heroku du projet
 
@@ -26,14 +26,12 @@ Ce projet a été réalisés par:
 
 ### Lancer le projet
 
-- [X] Dans le fichier `package.json`, modifier la ligne `"start": "node server.js"` en `"start": "ng serve"`
 - [X] Lancer la commande `npm install` pour installés les modules nécessaires
 - [X] Lancer la commande `ng serve` pour lancer le serveur d'application
 - [X] Rendez vous sur l'adresse `http://localhost:4200`
 
 ## Les fonctionnalités rajoutés (Côté Front-end)
 
-- 05 - ANDRIAMIHARIMANANA Ando Lalaina
 - [X] Utilisation du CDK `Drag and drop` de Angular sur le changement de status de "Rendus" et "Non Rendus", qui ne se
   déclenchera pas si l'utilisateur n'est pas authentifié
 - [X] Améliorations visuelles:
@@ -48,10 +46,9 @@ Ce projet a été réalisés par:
 
 - [X] L'enregistrement en tant qu'utilisateur sur l'application
 - [X] Gestion des Users côté front end (CRUD)
+- [X] Connexion et déconnection automatique après `1 min 30 sec` d'inactivité
 
-Améliorations des parties - Contributions secondaires:
+## Les fonctionnalités rajoutés (Côté Front-end)
 
-- Amelioration de la gestion du token sur la partie Front-end du `Json Web Token (JWT)` pour l'authentification
-- Connexion et déconnection automatique après `1 min 30 sec` d'inactivité
-
-A completer>>>
+- [X] Authentification avec JWT
+- [X] (Collection POSTMAN)[./src/app/shared/postman/M2-nodejs-backend-cloud.postman_collection.json] pour tester l'API
