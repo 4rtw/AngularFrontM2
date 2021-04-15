@@ -26,8 +26,9 @@ Ce projet a été réalisés par:
 
 ### Lancer le projet
 
-- [X] Lancer la commande `npm install` pour installés les modules nécessaires
-- [X] Lancer la commande `ng serve` pour lancer le serveur d'application
+- [X] Téléchargez le projet et décompréssez le
+- [X] Lancez la commande `npm install` dans le dossier décompréssé pour installer les modules nécessaires
+- [X] Lancez la commande `ng serve` pour lancer le serveur d'application
 - [X] Rendez vous sur l'adresse `http://localhost:4200`
 
 ## Les fonctionnalités rajoutés (Côté Front-end)
